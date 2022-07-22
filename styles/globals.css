@@ -1,16 +1,162 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;700&display=swap');
+
+body,
+button,
+input,
+textarea {
+    font-family: "Manrope", "Segoe UI", sans-serif;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* body {
+  font-family: "Source Sans Pro";
+} */
+
+.gradient {
+    background: linear-gradient(90deg, #d53369 0%, #e0c485 100%);
 }
 
-* {
-  box-sizing: border-box;
+.tab {
+    @apply p-4 hover:text-blue-500 hover:border-b-blue-500 border-b-4 duration-300 cursor-pointer flex-grow md:flex-grow-0;
+}
+
+.tab.active {
+    @apply border-b-blue-600 text-white bg-blue-600;
+}
+
+.markdown-container {
+    @apply w-full border border-gray-300 p-2 rounded-b-lg break-all;
+}
+
+.no-ring {
+    @apply focus:shadow-none focus:ring-transparent;
+}
+
+.tag-badge {
+    @apply bg-slate-300 rounded-md p-1 mx-1;
+}
+
+.separator {
+    @apply flex items-center text-center before:content-[''] before:flex-1 before:border-b before:border-b-slate-700 after:content-[''] after:flex-1 after:border-b after:border-b-slate-700 before:mr-7 after:ml-7 w-4/5 mx-auto md:w-full;
+}
+
+.active-outline {
+    @apply active:outline-gray-400 focus:outline-gray-400;
+}
+
+.post-content img {
+    @apply mx-auto rounded-lg;
+}
+
+.post-content table {
+    @apply bg-gray-100;
+}
+
+.post-content tbody>tr {
+    @apply odd:bg-gray-200;
+}
+
+/* Unreset Elements */
+.unreset a {
+    @apply text-blue-700 underline;
+}
+
+.unreset p {
+    @apply my-4;
+}
+
+.unreset figure {
+    @apply my-4 mx-10;
+}
+
+.unreset blockquote {
+    @apply border-l-8 border-gray-300 pl-6 mx-2;
+}
+
+.unreset hr {
+    @apply border;
+}
+
+.unreset h1 {
+    @apply text-4xl font-bold my-2;
+}
+
+.unreset h2 {
+    @apply text-2xl font-bold my-3;
+}
+
+.unreset h3 {
+    @apply text-lg font-bold my-4;
+}
+
+.unreset h4 {
+    @apply text-base font-bold my-5;
+}
+
+.unreset h5 {
+    @apply text-sm font-bold my-6;
+}
+
+.unreset h6 {
+    @apply text-xs font-bold my-10;
+}
+
+
+.unreset ul,
+.unreset menu {
+    @apply list-disc my-1 pl-10;
+}
+
+.unreset ol {
+    @apply list-decimal my-4 pl-10;
+}
+
+.unreset ul,
+.unreset ol>ul {
+    list-style-type: circle;
+}
+
+.unreset dd {
+    @apply pl-10;
+}
+
+.unreset dl {
+    @apply my-4;
+}
+
+.unreset legend {
+    @apply py-0 px-1;
+}
+
+.unreset fieldset {
+    @apply my-0 mx-1 pt-0 px-1 pb-2;
+}
+
+.unreset b,
+.unreset strong {
+    font-weight: bold;
+}
+
+.unreset pre {
+    @apply my-4;
+}
+
+.unreset td,
+th {
+    @apply border-collapse border-gray-800 p-1;
+}
+
+.unreset th {
+    @apply border-b-2;
+}
+
+.unreset code:not(.hljs) {
+    @apply p-1 text-red-400 bg-slate-100;
 }
