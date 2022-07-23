@@ -4,7 +4,7 @@ import TopBtnBar from './TopBtnBar';
 import TextEditor from './TextEditor';
 import { uploadToIpfs, uploadToIpfsFromUrl } from '../utils/ipfs';
 import { createPost } from '../utils/wallet';
-
+import Navbar from '../components/navbar';
 
 export default function Create() {
     const [walletAddress, setWalletAddress] = useState();
@@ -89,11 +89,7 @@ export default function Create() {
 
     return (
         <div>
-            <div className="flex flex-row justify-between px-5 border-b-2 m-1 align-middle items-center">
-                <div className='p-1 text-4xl font-bold'>
-                    Writez
-                </div>
-            </div>
+            <Navbar title="Writez" />
             {/* <button onClick={btnConnect}>connect</button>
             <p>{walletAddress ? walletAddress : "Not Logged in"}</p> */}
 

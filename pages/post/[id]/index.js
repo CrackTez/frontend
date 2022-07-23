@@ -60,7 +60,7 @@ const Post = () => {
 
     return (
         <>
-            <Navbar title='Wurdne' />
+            <Navbar title='Writez' />
 
             <div className='mt-24 mx-auto md:w-3/4 px-4 md:px-16'>
                 {isLoading ? (
