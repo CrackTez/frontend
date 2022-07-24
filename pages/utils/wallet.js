@@ -39,7 +39,7 @@ const getContract = async () => {
   return contract;
 };
 
-const createPost = async ({ royalty = 10, sell = true, price_mutez = 1000000, copies = 1, ipfs_url, title, thumbnail_url, frGoal=0 }) => {
+const createPost = async ({ royalty = 10, sell = true, price_mutez = 1000000, copies = 1, ipfs_url, title, thumbnail_url, frGoal = 0 }) => {
   await connectWallet();
   const contract = await getContract();
   const op = await contract.methods.create_post(
@@ -55,4 +55,14 @@ const createPost = async ({ royalty = 10, sell = true, price_mutez = 1000000, co
   await op.confirmation();
 }
 
-export { connectWallet, disconnectWallet, getPKH, getContract, createPost };
+const buyPost = async ({ post_id, copy_id }) => {
+  await connectWallet();
+  const contract = await getContract();
+  const op = await contract.methods.create_post(
+    copy_id,
+    post_id
+  ).send();
+  await op.confirmation();
+}
+
+export { connectWallet, disconnectWallet, getPKH, getContract, createPost, buyPost };

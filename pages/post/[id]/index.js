@@ -9,6 +9,9 @@ import Loader from "../../Loader";
 import Navbar from "../../components/navbar";
 import StickyActionWidget from "./StickyActionWidget"
 import axios from "axios";
+import tezIcon from "../../assets/tezos.svg";
+import Image from "next/image";
+
 
 const Post = () => {
     const router = useRouter()
@@ -23,6 +26,13 @@ const Post = () => {
     const [postBody, setPostBody] = useState(null);
     const [postStats, setPostStats] = useState([]); // [diamonds, likes, comments]
 
+    const [postPrice, setPostPrice] = useState();
+    const [copiesMax, setPostCopiesMax] = useState();
+    const [copiesRemaining, setPostCopiesRemaining] = useState();
+    const [fundraisingGoal, setFundraisingGoal] = useState();
+    const [fundraised, setFundraised] = useState();
+    const [royalty, setRoyalty] = useState();
+
     const commentElement = useRef();
 
     useEffect(() => {
@@ -36,11 +46,20 @@ const Post = () => {
                 console.log("An Error Occured!");
                 return;
             }
+
+            console.log(post);
+
             setPosterKey(post.author);
             setPostBody(post.ipfs_content);
             setPostCover(post.thumbnail_url);
             setPostUserName(post.author);
             setPostTitle(post.title);
+            setPostPrice(0);
+            setPostCopiesRemaining(post.copies_max);
+            setPostCopiesMax(post.copies_remaining);
+            setFundraised(post.fundraised / 1e6);
+            setFundraisingGoal(post.fundraising_goal / 1e6);
+            setRoyalty(post.royalty_percent);
             // setPostStats([
             //     postData.DiamondCount,
             //     postData.LikeCount,
@@ -76,7 +95,7 @@ const Post = () => {
                                         className='rounded-full h-12 w-12'
                                     /> */}
                                 </div>
-                                <div className='user-text flex flex-col justify-center p-2 text-gray-800'>
+                                <div className='user-text p-2 text-gray-800'>
                                     <div className='username font-bold hover:underline'>
                                         {/* {postUsername ? postUsername.slice(0, 6) + "..." + postUsername.slice(-6) : "..."} */}
                                         {postUsername ? postUsername : "..."}
@@ -106,6 +125,18 @@ const Post = () => {
                             {postBody}
                         </ReactMarkdown>
 
+                        <div className='title text-2xl font-bold separator my-5'>-</div>
+                        <div>
+                            {royalty} % royalty
+                        </div>
+                        <div>
+                            {copiesRemaining} out of {copiesMax} copies left
+                        </div>
+                        <div>
+                            {fundraised} <Image src={tezIcon} width={15} height={15} className="inline-block" /> of {fundraisingGoal} <Image src={tezIcon} width={15} height={15} className="inline-block" /> raised
+                        </div>
+
+                        <div className='title text-2xl font-bold separator my-5'>-</div>
                         {/* 
               <div className='tag-bar py-2 flex gap-2'>
                 {postTags.map((tag, idx) => {
@@ -121,9 +152,9 @@ const Post = () => {
               </div> 
             */}
 
-                        {/* <div className='comments mt-4' ref={commentElement}>
-                            <div className='title text-2xl font-bold separator'>Comments</div>
-                        </div> */}
+                        {/* <div className='comments mt-4' ref={commentElement}> */}
+                        {/*    <div className='title text-2xl font-bold separator'>Comments</div> */}
+                        {/* </div> */}
 
                         {/* <StickyActionWidget
                             id={id}
