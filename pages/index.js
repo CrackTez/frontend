@@ -67,7 +67,7 @@ export default function Landing() {
         <section className='bg-white border-b py-8'>
           <div className='container max-w-5xl mx-auto m-8'>
             <h1 className='w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800'>
-              Why Wurdne?
+              Why Writez?
             </h1>
             <div className='w-full mb-4'>
               <div className='h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t'></div>
@@ -99,7 +99,7 @@ export default function Landing() {
                     No Ads!
                   </h3>
                   <p className='text-gray-600 mb-8'>
-                    Ads and annoying popups are such a web2 thing. With Wurdne,
+                    Ads and annoying popups are such a web2 thing. With Writez,
                     you can read and write content withot time consuming ads and
                     popups!
                     <br />

@@ -39,11 +39,12 @@ const getContract = async () => {
   return contract;
 };
 
-const createPost = async ({ royalty = 10, sell = true, price_mutez = 1000000, copies = 1, ipfs_url, title, thumbnail_url }) => {
+const createPost = async ({ royalty = 10, sell = true, price_mutez = 1000000, copies = 1, ipfs_url, title, thumbnail_url, frGoal=0 }) => {
   await connectWallet();
   const contract = await getContract();
   const op = await contract.methods.create_post(
     copies,
+    frGoal,
     ipfs_url,
     price_mutez,
     royalty,
