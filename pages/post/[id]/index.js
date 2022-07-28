@@ -11,6 +11,7 @@ import StickyActionWidget from "./StickyActionWidget"
 import axios from "axios";
 import tezIcon from "../../assets/tezos.svg";
 import Image from "next/image";
+import { sendTip } from "../../utils/wallet";
 
 
 const Post = () => {
@@ -135,6 +136,8 @@ const Post = () => {
                         <div>
                             {fundraised} <Image src={tezIcon} width={15} height={15} className="inline-block" /> of {fundraisingGoal} <Image src={tezIcon} width={15} height={15} className="inline-block" /> raised
                         </div>
+                        <br />
+                        <button onClick={() => { sendTip({ post_id: 0, amount_mutez: 10000 }) }}>send 0.1tez tip</button>
 
                         <div className='title text-2xl font-bold separator my-5'>-</div>
                         {/* 

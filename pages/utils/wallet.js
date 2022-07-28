@@ -60,14 +60,16 @@ const createPost = async ({
   await op.confirmation();
 }
 
-const buyPost = async ({ post_id, copy_id }) => {
+const sendTip = async ({ post_id, amount_mutez }) => {
   await connectWallet();
   const contract = await getContract();
-  const op = await contract.methods.create_post(
-    copy_id,
+  const op = await contract.methods.send_tip(
     post_id
-  ).send();
+  ).send({
+    amount: 100000,
+    mutez: true
+  });
   await op.confirmation();
 }
 
-export { connectWallet, disconnectWallet, getPKH, getContract, createPost, buyPost };
+export { connectWallet, disconnectWallet, getPKH, getContract, createPost, sendTip };
