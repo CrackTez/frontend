@@ -11,7 +11,7 @@ import StickyActionWidget from "./StickyActionWidget"
 import axios from "axios";
 import tezIcon from "../../assets/tezos.svg";
 import Image from "next/image";
-import { sendTip } from "../../utils/wallet";
+import { sendTip } from "../../../utils/wallet";
 
 
 const Post = () => {

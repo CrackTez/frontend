@@ -1,9 +1,8 @@
 import { useState, useRef } from 'react';
-import { connectWallet, getPKH } from "../utils/wallet";
+import { connectWallet, getPKH, createPost } from "../../utils/wallet";
 import TopBtnBar from './TopBtnBar';
 import TextEditor from './TextEditor';
-import { uploadToIpfs, uploadToIpfsFromUrl } from '../utils/ipfs';
-import { createPost } from '../utils/wallet';
+import { uploadToIpfs, uploadToIpfsFromUrl } from '../../utils/ipfs';
 import Navbar from '../components/navbar';
 import tezIcon from "../assets/tezos.svg";
 import Image from 'next/image';

@@ -5,7 +5,7 @@ import rehypeHighlight from "rehype-highlight";
 
 import TextEditorBar from './TextEditorBar';
 
-import guideText from "./GuideText";
+import guideText from "../../utils/GuideText";
 
 const TextEditor = ({ titleText, bodyText, setTitleText, setBodyText, uploadImage }) => {
     const appendBodyActions = {

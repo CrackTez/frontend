@@ -1,5 +1,4 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { getFromIpfs } from '../utils/ipfs';
 import * as config from '../../config';
 import axios from 'axios';
 

@@ -1,22 +1,25 @@
 import { TezosToolkit, MichelsonMap } from '@taquito/taquito';
 import { BeaconWallet } from '@taquito/beacon-wallet';
-import * as config from '../../config';
-import { bytes2Char, char2Bytes } from '@taquito/utils';
-import axios from 'axios';
+import * as config from '../config';
 
-const Tezos = new TezosToolkit(config.RPC_URL);
+var Tezos, wallet;
 
-const options = {
-  name: config.NAME,
-  // iconUrl: 'https://tezostaquito.io/img/favicon.png',
-  preferredNetwork: config.NETWORK,
-};
+function setup() {
+  Tezos = new TezosToolkit(config.RPC_URL);
 
-const wallet = new BeaconWallet(options);
+  const options = {
+    name: config.NAME,
+    // iconUrl: 'https://tezostaquito.io/img/favicon.png',
+    preferredNetwork: config.NETWORK,
+  };
 
-Tezos.setWalletProvider(wallet);
+  wallet = new BeaconWallet(options);
+
+  Tezos.setWalletProvider(wallet);
+}
 
 const connectWallet = async () => {
+  setup();
   await wallet.requestPermissions({
     network: {
       type: config.NETWORK,
@@ -30,6 +33,7 @@ const disconnectWallet = async () => {
 };
 
 const getPKH = async () => {
+  connectWallet();
   const pkh = await wallet.getPKH();
   return pkh;
 };
