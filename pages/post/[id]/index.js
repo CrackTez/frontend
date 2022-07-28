@@ -54,12 +54,12 @@ const Post = () => {
             setPostCover(post.thumbnail_url);
             setPostUserName(post.author);
             setPostTitle(post.title);
-            setPostPrice(0);
-            setPostCopiesRemaining(post.copies_max);
-            setPostCopiesMax(post.copies_remaining);
+            // setPostPrice(0);
+            // setPostCopiesRemaining(post.copies_max);
+            // setPostCopiesMax(post.copies_remaining);
             setFundraised(post.fundraised / 1e6);
             setFundraisingGoal(post.fundraising_goal / 1e6);
-            setRoyalty(post.royalty_percent);
+            // setRoyalty(post.royalty_percent);
             // setPostStats([
             //     postData.DiamondCount,
             //     postData.LikeCount,
@@ -125,13 +125,13 @@ const Post = () => {
                             {postBody}
                         </ReactMarkdown>
 
-                        <div className='title text-2xl font-bold separator my-5'>-</div>
+                        {/* <div className='title text-2xl font-bold separator my-5'>-</div>
                         <div>
                             {royalty} % royalty
                         </div>
                         <div>
                             {copiesRemaining} out of {copiesMax} copies left
-                        </div>
+                        </div> */}
                         <div>
                             {fundraised} <Image src={tezIcon} width={15} height={15} className="inline-block" /> of {fundraisingGoal} <Image src={tezIcon} width={15} height={15} className="inline-block" /> raised
                         </div>

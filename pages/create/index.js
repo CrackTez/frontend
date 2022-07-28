@@ -88,16 +88,17 @@ export default function Create() {
         } if (!postCover) {
             alert("You must set a post cover");
             return;
-        } if (!priceTez) {
-            alert("You must set a price for your post");
-            return;
-        } if (!royalty) {
-            alert("You must set a royalty percent for your post");
-            return;
-        } if (!copies) {
-            alert("You must set number of copies of your post");
-            return;
         }
+        //  if (!priceTez) {
+        //     alert("You must set a price for your post");
+        //     return;
+        // } if (!royalty) {
+        //     alert("You must set a royalty percent for your post");
+        //     return;
+        // } if (!copies) {
+        //     alert("You must set number of copies of your post");
+        //     return;
+        // }
 
         if (!fundraisingAmt) {
             setFundraisingAmt(0);
@@ -105,10 +106,10 @@ export default function Create() {
 
         const ipfs_url = await uploadToIpfs(bodyText);
         await createPost({
-            royalty: royalty,
-            sell: sellPost,
-            price_mutez: priceTez,
-            copies: copies,
+            // royalty: royalty,
+            // sell: sellPost,
+            // price_mutez: priceTez,
+            // copies: copies,
             ipfs_url: ipfs_url,
             title: titleText,
             thumbnail_url: postCover,
@@ -165,27 +166,27 @@ export default function Create() {
 
                 <form>
                     <div className="grid gap-2 mt-10 mb-2 grid-cols-1 sm:grid-cols-2">
-                        <div>
+                        {/* <div>
                             <label className='inline-block mb-2 text-sm font-medium text-gray-900'>Price </label>
                             <Image src={tezIcon} width={15} height={15} className="inline-block" />
                             <input type="number" min={0} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="e.g 1" required
                                 onChange={(e) => { setPriceTez(Math.abs(e.target.value * 1e6)) }} onKeyUp={(e) => { e.target.value = Math.abs(e.target.value) }} />
-                        </div>
-                        <div>
+                        </div> */}
+                        {/* <div>
                             <label className='block mb-2 text-sm font-medium text-gray-900'>Royalty Percent</label>
                             <input type="number" min={0} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="e.g 10%" required
                                 onChange={(e) => { setRoyalty(Math.abs(e.target.value)) }} onKeyUp={(e) => { e.target.value = Math.abs(e.target.value) }} />
-                        </div>
-                        <div>
+                        </div> */}
+                        {/* <div>
                             <label className='block mb-2 text-sm font-medium text-gray-900'>Number Of Copies</label>
                             <input type="number" min={0} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="e.g 5" required
                                 onChange={(e) => { setCopies(Math.abs(e.target.value)) }} onKeyUp={(e) => { e.target.value = Math.abs(e.target.value) }} />
-                        </div>
-                        <div className="flex items-center mt-auto pl-5 rounded-lg border border-gray-300 bg-gray-50 h-11">
+                        </div> */}
+                        {/* <div className="flex items-center mt-auto pl-5 rounded-lg border border-gray-300 bg-gray-50 h-11">
                             <input defaultChecked type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-2"
                                 onChange={(e) => { setSellPost(Math.abs(e.target.value)) }} />
                             <label className="py-4 ml-2 w-full text-sm font-medium text-gray-900">Set Sale</label>
-                        </div>
+                        </div> */}
                     </div>
                     <div className='mb-10'>
                         <label className='inline-block mb-2 text-sm font-medium text-gray-900'>Fundraising Goal <Image src={tezIcon} width={15} height={15} className="inline-block" /> (optional)</label>
