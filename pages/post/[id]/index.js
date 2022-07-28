@@ -125,8 +125,8 @@ const Post = () => {
                             {postBody}
                         </ReactMarkdown>
 
-                        {/* <div className='title text-2xl font-bold separator my-5'>-</div>
-                        <div>
+                        <div className='title text-2xl font-bold separator my-5'>-</div>
+                        {/* <div>
                             {royalty} % royalty
                         </div>
                         <div>
