@@ -34,7 +34,6 @@ function timeDifference(previous) {
 
 const Card = ({ post }) => {
     const router = useRouter();
-    console.log(post)
     const url = `/post/${post.id}`;
     return (
         <div className="max-w-sm rounded-md overflow-hidden shadow-lg bg-white text-black cursor-pointer mx-auto" onClick={
@@ -62,8 +61,6 @@ const Card = ({ post }) => {
 export default function Posts() {
     const [postList, setPostList] = useState([]);
 
-    var limit = 10;
-
     useEffect(() => {
         async function getPosts() {
             try {
@@ -71,7 +68,7 @@ export default function Posts() {
                 if (posts.data) {
                     var id = posts.data.length - 1;
                     var spliced = [];
-                    spliced = posts.data.slice(Math.max(posts.data.length - limit, 0));
+                    spliced = posts.data.slice(Math.max(posts.data.length - 10, 0));
                     var splicedNew = [];
                     for (var i = spliced.length - 1; i >= 0; i--) {
                         var post = spliced[i].value;
@@ -91,7 +88,7 @@ export default function Posts() {
 
         }
         getPosts();
-    }, []);
+    });
 
 
 
@@ -102,7 +99,7 @@ export default function Posts() {
                 <div className='pt-24  mb-10 '>
                     <div className='p-10 mx-auto grid gap-5 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
                         {/* Show latest posts here */}
-                        {postList}
+                        {postList.length > 0 ? postList : "Loading Latest Posts..."}
                     </div>
                 </div>
                 <div className='relative -mt-12 lg:-mt-24'>
