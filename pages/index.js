@@ -2,12 +2,15 @@ import React from "react";
 
 import Navbar from "./components/navbar";
 import landingIllustration from "./assets/landingIllustration.png";
-
+import { useRouter } from "next/router";
 import noAds from "./assets/noAds.svg";
 // import Login from "./Login";
 import Image from "next/image";
 export default function Landing() {
-  //check if user has logged in. If yes, don't
+  const router = useRouter();
+  function gotoBlogsList() {
+    router.push("/post");
+  }
 
   return (
     <div className='leading-normal tracking-normal text-white gradient'>
@@ -23,6 +26,19 @@ export default function Landing() {
                 Write blog posts to blockchain, share ideas, and connect with
                 the global community without permission!
               </p>
+              <div
+                className='w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent text-black p-4 lg:p-0 z-20'
+                id='nav-content'>
+                <ul className='list-reset lg:flex justify-end flex-1 items-center'>
+                  <li className='mr-3'></li>
+                </ul>
+                <button
+                  id='navAction'
+                  onClick={gotoBlogsList}
+                  className='mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out'>
+                  Checkout Latest Blogs
+                </button>
+              </div>
               {/* <Login /> */}
             </div>
 
