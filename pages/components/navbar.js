@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 export default function Navbar(props) {
@@ -12,13 +13,9 @@ export default function Navbar(props) {
             className={`fixed bg-white ${props.gradient ? "gradient text-white" : null
                 } w-full z-30 top-0  shadow-sm`}>
             <div className='w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2'>
-                <div className='pl-4 flex items-center'>
-                    <a
-                        className={`toggleColour ${props.gradient ? "text-white" : null
-                            } no-underline hover:no-underline font-bold text-2xl lg:text-4xl`}
-                        href='/'>
-                        {props.title}
-                    </a>
+                <div className={`toggleColour ${props.gradient ? "text-white" : null
+                    } no-underline hover:no-underline font-bold text-2xl lg:text-4xl pl-4 flex items-center`}>
+                    <Link href="/">{props.title}</Link>
                 </div>
                 <div className='block lg:hidden pr-4'>
                     <button
