@@ -27,15 +27,9 @@ export default function Landing() {
                 the global community without permission!
               </p>
               <div
-                className='w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent text-black p-4 lg:p-0 z-20'
-                id='nav-content'>
-                <ul className='list-reset lg:flex justify-end flex-1 items-center'>
-                  <li className='mr-3'></li>
-                </ul>
-                <button
-                  id='navAction'
-                  onClick={gotoBlogsList}
-                  className='mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out'>
+                className='w-full flex-grow lg:flex lg:items-center lg:w-auto mt-2 lg:mt-0  lg:bg-transparent text-black p-4 lg:p-0 z-20'>
+                <button onClick={gotoBlogsList}
+                  className='mx-auto lg:mx-0 hover:underline bg-white/50 text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out'>
                   Checkout Latest Blogs
                 </button>
               </div>
@@ -44,7 +38,7 @@ export default function Landing() {
 
             <div className='w-full md:w-3/5 py-6 text-center'>
               {/* <img className='w-full md:w-4/5 z-50' src={landingIllustration} /> */}
-              <Image className='w-full md:w-4/5 z-50' src={landingIllustration} />
+              <Image className='w-full md:w-4/5' src={landingIllustration} />
             </div>
           </div>
         </div>
