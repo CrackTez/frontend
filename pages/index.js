@@ -3,6 +3,8 @@ import Navbar from "./components/navbar";
 import landingIllustration from "./assets/landingIllustration.png";
 import { useRouter } from "next/router";
 import noAds from "./assets/noAds.svg";
+import goal from "./assets/goal.png";
+import revenue from "./assets/revenue.svg"
 // import Login from "./Login";
 import Image from "next/image";
 export default function Landing() {
@@ -94,7 +96,7 @@ export default function Landing() {
                 </p>
               </div>
               <div className='w-full sm:w-1/3 p-6'>
-                {/* Add some image to that like  <img src={revenueSvg}></img>*/}
+              <Image src={revenue} />
               </div>
             </div>
             <div className='flex flex-wrap flex-col-reverse sm:flex-row'>
@@ -115,6 +117,26 @@ export default function Landing() {
                     <br />
                   </p>
                 </div>
+              </div>
+            </div>
+
+            <div className='flex flex-wrap flex-col-reverse sm:flex-row items-center'>
+              
+              <div className='w-full sm:w-1/2 p-6 mt-6'>
+                <div className='align-middle'>
+                  <h3 className='text-3xl text-gray-800 font-bold leading-none mb-3'>
+                    Raise funds for your next idea!
+                  </h3>
+                  <p className='text-gray-600 mb-8'>
+                    With Writez, raising funds from the Internet becomes as easy as writing a blog post!
+                    <br />
+                    <br />
+                  </p>
+                </div>
+              </div>
+              <div className='w-full sm:w-1/3 p-6 mt-6'>
+                {/* <img src={noAds}></img> */}
+                <Image src={goal} />
               </div>
             </div>
           </div>
