@@ -62,7 +62,7 @@ const sendTip = async ({ post_id, amount_mutez }) => {
   const op = await contract.methods.send_tip(
     post_id
   ).send({
-    amount: 100000,
+    amount: amount_mutez,
     mutez: true
   });
   await op.confirmation();

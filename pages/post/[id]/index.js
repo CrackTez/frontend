@@ -32,6 +32,7 @@ const Post = () => {
     const [copiesRemaining, setPostCopiesRemaining] = useState();
     const [fundraisingGoal, setFundraisingGoal] = useState();
     const [fundraised, setFundraised] = useState();
+    const [percentRaised, setPercentRaised] = useState(0);
     const [royalty, setRoyalty] = useState();
 
     const commentElement = useRef();
@@ -42,7 +43,7 @@ const Post = () => {
             //for now I am just fetching a simple post from deso blockchain cuz i am too lazy to fetch from IPFS
             const response = await axios.post("/api/getPostWithID", { id: id })
             const post = response.data.post;
-
+            console.log(post);
             if (!response.status === 200) {
                 console.log("An Error Occured!");
                 return;
@@ -58,6 +59,7 @@ const Post = () => {
             // setPostCopiesMax(post.copies_remaining);
             setFundraised(post.fundraised / 1e6);
             setFundraisingGoal(post.fundraising_goal / 1e6);
+            setPercentRaised(post.fundraised * 100 / post.fundraising_goal);
             // setRoyalty(post.royalty_percent);
             // setPostStats([
             //     postData.DiamondCount,
@@ -131,12 +133,23 @@ const Post = () => {
                         <div>
                             {copiesRemaining} out of {copiesMax} copies left
                         </div> */}
+
                         <div>
                             {fundraised} <Image src={tezIcon} width={15} height={15} className="inline-block" /> of {fundraisingGoal} <Image src={tezIcon} width={15} height={15} className="inline-block" /> raised
                         </div>
+                        <div className="w-full bg-gray-200 rounded">
+                            <div className="bg-blue-600 text-xs font-medium text-blue-100 text-center px-0.5 rounded-l" style={{ width: percentRaised + "%", minWidth: "fit-content" }}>{percentRaised}%</div>
+                        </div>
                         <br />
-                        <button onClick={() => { sendTip({ post_id: id, amount_mutez: 10000 }) }}>send 0.1tez tip</button>
-
+                        Send Tip
+                        <br />
+                        <div className="flex gap-2 text-center justify-center">
+                            <button className="bg-blue-300/50 p-1 px-5 rounded-lg hover:shadow-md ease-in-out transition-shadow duration-300" onClick={() => { sendTip({ post_id: id, amount_mutez: 100000 }) }}>0.1<Image src={tezIcon} width={15} height={15} className="inline-block" /></button>
+                            <button className="bg-blue-300/50 p-1 px-5 rounded-lg hover:shadow-md ease-in-out transition-shadow duration-300" onClick={() => { sendTip({ post_id: id, amount_mutez: 200000 }) }}>0.2<Image src={tezIcon} width={15} height={15} className="inline-block" /></button>
+                            <button className="bg-blue-300/50 p-1 px-5 rounded-lg hover:shadow-md ease-in-out transition-shadow duration-300" onClick={() => { sendTip({ post_id: id, amount_mutez: 500000 }) }}>0.5<Image src={tezIcon} width={15} height={15} className="inline-block" /></button>
+                            <button className="bg-blue-300/50 p-1 px-5 rounded-lg hover:shadow-md ease-in-out transition-shadow duration-300" onClick={() => { sendTip({ post_id: id, amount_mutez: 1000000 }) }}>1<Image src={tezIcon} width={15} height={15} className="inline-block" /></button>
+                            <button className="bg-blue-300/50 p-1 px-5 rounded-lg hover:shadow-md ease-in-out transition-shadow duration-300" onClick={() => { sendTip({ post_id: id, amount_mutez: 2000000 }) }}>2<Image src={tezIcon} width={15} height={15} className="inline-block" /></button>
+                        </div>
                         <div className='title text-2xl font-bold separator my-5'>-</div>
                         {/* 
               <div className='tag-bar py-2 flex gap-2'>
