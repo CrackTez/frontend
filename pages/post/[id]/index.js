@@ -30,10 +30,11 @@ const Post = () => {
     const [postPrice, setPostPrice] = useState();
     const [copiesMax, setPostCopiesMax] = useState();
     const [copiesRemaining, setPostCopiesRemaining] = useState();
-    const [fundraisingGoal, setFundraisingGoal] = useState();
-    const [fundraised, setFundraised] = useState();
+    const [fundraisingGoal, setFundraisingGoal] = useState(0);
+    const [fundraised, setFundraised] = useState(0);
     const [percentRaised, setPercentRaised] = useState(0);
     const [royalty, setRoyalty] = useState();
+    const [progressBar, setProgressBar] = useState("");
 
     const commentElement = useRef();
 
@@ -71,12 +72,20 @@ const Post = () => {
             setPostDate(
                 DateTime.fromMillis(timestamp).toLocaleString(DateTime.DATE_FULL)
             );
-
+            setProgressBar(<div className="bg-blue-600 text-xs font-medium text-blue-100 text-center px-0.5 rounded" style={{ width: (post.fundraised * 100 / post.fundraising_goal).toFixed(2).toString() + "%", minWidth: "fit-content", maxWidth: "100%" }}>{(post.fundraised * 100 / post.fundraising_goal).toFixed(2)}%</div>)
             setIsLoading(false);
         }
         fetchData();
 
     }, [id]);
+
+    function sendTipFunc(id, amt_mutez) {
+        sendTip({ post_id: id, amount_mutez: amt_mutez });
+        setFundraised(fundraised + (amt_mutez / 1e6));
+        setPercentRaised((fundraised + (amt_mutez / 1e6)) * 100 / fundraisingGoal);
+        setProgressBar(<div className="bg-blue-600 text-xs font-medium text-blue-100 text-center px-0.5 rounded" style={{ width: ((fundraised + (amt_mutez / 1e6)) * 100 / fundraisingGoal).toFixed(2).toString() + "%", minWidth: "fit-content", maxWidth: "100%" }}>{((fundraised + (amt_mutez / 1e6)) * 100 / fundraisingGoal).toFixed(2)}%</div>)
+
+    }
 
     return (
         <>
@@ -135,20 +144,19 @@ const Post = () => {
                         </div> */}
 
                         <div>
-                            {fundraised} <Image src={tezIcon} width={15} height={15} className="inline-block" /> of {fundraisingGoal} <Image src={tezIcon} width={15} height={15} className="inline-block" /> raised
+                            {fundraised.toFixed(2)} <Image src={tezIcon} width={15} height={15} className="inline-block" /> of {fundraisingGoal} <Image src={tezIcon} width={15} height={15} className="inline-block" /> raised
                         </div>
                         <div className="w-full bg-gray-200 rounded">
-                            <div className="bg-blue-600 text-xs font-medium text-blue-100 text-center px-0.5 rounded-l" style={{ width: percentRaised + "%", minWidth: "fit-content" }}>{percentRaised}%</div>
+                            {progressBar}
                         </div>
                         <br />
                         Send Tip
                         <br />
                         <div className="flex gap-2 text-center justify-center">
-                            <button className="bg-blue-300/50 p-1 px-5 rounded-lg hover:shadow-md ease-in-out transition-shadow duration-300" onClick={() => { sendTip({ post_id: id, amount_mutez: 100000 }) }}>0.1<Image src={tezIcon} width={15} height={15} className="inline-block" /></button>
-                            <button className="bg-blue-300/50 p-1 px-5 rounded-lg hover:shadow-md ease-in-out transition-shadow duration-300" onClick={() => { sendTip({ post_id: id, amount_mutez: 200000 }) }}>0.2<Image src={tezIcon} width={15} height={15} className="inline-block" /></button>
-                            <button className="bg-blue-300/50 p-1 px-5 rounded-lg hover:shadow-md ease-in-out transition-shadow duration-300" onClick={() => { sendTip({ post_id: id, amount_mutez: 500000 }) }}>0.5<Image src={tezIcon} width={15} height={15} className="inline-block" /></button>
-                            <button className="bg-blue-300/50 p-1 px-5 rounded-lg hover:shadow-md ease-in-out transition-shadow duration-300" onClick={() => { sendTip({ post_id: id, amount_mutez: 1000000 }) }}>1<Image src={tezIcon} width={15} height={15} className="inline-block" /></button>
-                            <button className="bg-blue-300/50 p-1 px-5 rounded-lg hover:shadow-md ease-in-out transition-shadow duration-300" onClick={() => { sendTip({ post_id: id, amount_mutez: 2000000 }) }}>2<Image src={tezIcon} width={15} height={15} className="inline-block" /></button>
+                            <button className="bg-blue-300/50 p-1 px-5 rounded-lg hover:shadow-md ease-in-out transition-shadow duration-300" onClick={() => { sendTipFunc(id, 200000) }}>0.2<Image src={tezIcon} width={15} height={15} className="inline-block" /></button>
+                            <button className="bg-blue-300/50 p-1 px-5 rounded-lg hover:shadow-md ease-in-out transition-shadow duration-300" onClick={() => { sendTipFunc(id, 500000) }}>0.5<Image src={tezIcon} width={15} height={15} className="inline-block" /></button>
+                            <button className="bg-blue-300/50 p-1 px-5 rounded-lg hover:shadow-md ease-in-out transition-shadow duration-300" onClick={() => { sendTipFunc(id, 1000000) }}>1<Image src={tezIcon} width={15} height={15} className="inline-block" /></button>
+                            <button className="bg-blue-300/50 p-1 px-5 rounded-lg hover:shadow-md ease-in-out transition-shadow duration-300" onClick={() => { sendTipFunc(id, 2000000) }}>2<Image src={tezIcon} width={15} height={15} className="inline-block" /></button>
                         </div>
                         <div className='title text-2xl font-bold separator my-5'>-</div>
                         {/* 
