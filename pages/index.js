@@ -1,5 +1,4 @@
 import React from "react";
-
 import Navbar from "./components/navbar";
 import landingIllustration from "./assets/landingIllustration.png";
 import { useRouter } from "next/router";
@@ -9,7 +8,7 @@ import Image from "next/image";
 export default function Landing() {
   const router = useRouter();
   function gotoBlogsList() {
-    router.push("/post");
+    router.push("/feed");
   }
 
   return (

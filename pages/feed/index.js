@@ -33,7 +33,7 @@ const Card = ({ post }) => {
   const url = `/post/${post.id}`;
   return (
     <div
-      className='max-w-sm rounded-md overflow-hidden shadow-lg bg-white text-black cursor-pointer mx-auto'
+      className='max-w-sm rounded-md overflow-hidden shadow-lg bg-white text-black cursor-pointer mx-auto hover:scale-105 duration-75'
       onClick={() => {
         router.push(url);
       }}>
@@ -68,6 +68,7 @@ export default function Posts() {
           `https://api.jakartanet.tzkt.io/v1/contracts/${config.CONTRACT_ADDRESS}/bigmaps/posts/keys`
         );
         if (posts.data) {
+          console.log("Successfully fetched posts");
           var id = posts.data.length - 1;
           var spliced = [];
           spliced = posts.data.slice(Math.max(posts.data.length - 10, 0));
@@ -81,14 +82,16 @@ export default function Posts() {
             id--;
           }
           setPostList(splicedNew);
-        } else {
+        } else{
+          console.log("Some error happend while fetching posts");
+          console.log(posts)
         }
       } catch (e) {
         console.log(e);
       }
     }
     getPosts();
-  });
+  }, []);
 
   return (
     <div className='leading-normal tracking-normal text-white gradient'>
