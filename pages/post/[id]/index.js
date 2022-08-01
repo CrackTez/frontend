@@ -7,159 +7,236 @@ import rehypeHighlight from "rehype-highlight";
 import { DateTime } from "luxon";
 import Loader from "../../Loader";
 import Navbar from "../../components/navbar";
-import StickyActionWidget from "./StickyActionWidget"
+import StickyActionWidget from "./StickyActionWidget";
 import axios from "axios";
 import tezIcon from "../../assets/tezos.svg";
 import Image from "next/image";
 import { sendTip } from "../../../utils/wallet";
 
-
 const Post = () => {
-    const router = useRouter()
-    const { id } = router.query;
-    const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
+  const { id } = router.query;
+  const [isLoading, setIsLoading] = useState(true);
 
-    const [postTitle, setPostTitle] = useState(null);
-    const [posterKey, setPosterKey] = useState(null);
-    const [postUsername, setPostUserName] = useState(null);
-    const [postDate, setPostDate] = useState(null);
-    const [postCover, setPostCover] = useState(null);
-    const [postBody, setPostBody] = useState(null);
-    const [postStats, setPostStats] = useState([]); // [diamonds, likes, comments]
+  const [postTitle, setPostTitle] = useState(null);
+  const [posterKey, setPosterKey] = useState(null);
+  const [postUsername, setPostUserName] = useState(null);
+  const [postDate, setPostDate] = useState(null);
+  const [postCover, setPostCover] = useState(null);
+  const [postBody, setPostBody] = useState(null);
+  const [postStats, setPostStats] = useState([]); // [diamonds, likes, comments]
 
-    const [postPrice, setPostPrice] = useState();
-    const [copiesMax, setPostCopiesMax] = useState();
-    const [copiesRemaining, setPostCopiesRemaining] = useState();
-    const [fundraisingGoal, setFundraisingGoal] = useState(0);
-    const [fundraised, setFundraised] = useState(0);
-    const [percentRaised, setPercentRaised] = useState(0);
-    const [royalty, setRoyalty] = useState();
-    const [progressBar, setProgressBar] = useState("");
+  const [postPrice, setPostPrice] = useState();
+  const [copiesMax, setPostCopiesMax] = useState();
+  const [copiesRemaining, setPostCopiesRemaining] = useState();
+  const [fundraisingGoal, setFundraisingGoal] = useState(0);
+  const [fundraised, setFundraised] = useState(0);
+  const [percentRaised, setPercentRaised] = useState(0);
+  const [royalty, setRoyalty] = useState();
+  const [progressBar, setProgressBar] = useState("");
 
-    const commentElement = useRef();
+  const commentElement = useRef();
 
-    useEffect(() => {
-        async function fetchData() {
-            //here we will fetch the post info from IPFS
-            //for now I am just fetching a simple post from deso blockchain cuz i am too lazy to fetch from IPFS
-            const response = await axios.post("/api/getPostWithID", { id: id })
-            const post = response.data.post;
-            console.log(post);
-            if (!response.status === 200) {
-                console.log("An Error Occured!");
-                return;
-            }
+  useEffect(() => {
+    async function fetchData() {
+      //here we will fetch the post info from IPFS
+      //for now I am just fetching a simple post from deso blockchain cuz i am too lazy to fetch from IPFS
+      const response = await axios.post("/api/getPostWithID", { id: id });
+      const post = response.data.post;
+      console.log(post);
+      if (!response.status === 200) {
+        console.log("An Error Occured!");
+        return;
+      }
 
-            setPosterKey(post.author);
-            setPostBody(post.ipfs_content);
-            setPostCover(post.thumbnail_url);
-            setPostUserName(post.author);
-            setPostTitle(post.title);
-            // setPostPrice(0);
-            // setPostCopiesRemaining(post.copies_max);
-            // setPostCopiesMax(post.copies_remaining);
-            setFundraised(post.fundraised / 1e6);
-            setFundraisingGoal(post.fundraising_goal / 1e6);
-            setPercentRaised(post.fundraised * 100 / post.fundraising_goal);
-            // setRoyalty(post.royalty_percent);
-            // setPostStats([
-            //     postData.DiamondCount,
-            //     postData.LikeCount,
-            //     postData.CommentCount,
-            // ]);
+      setPosterKey(post.author);
+      setPostBody(post.ipfs_content);
+      setPostCover(post.thumbnail_url);
+      setPostUserName(post.author);
+      setPostTitle(post.title);
+      // setPostPrice(0);
+      // setPostCopiesRemaining(post.copies_max);
+      // setPostCopiesMax(post.copies_remaining);
+      setFundraised(post.fundraised / 1e6);
+      setFundraisingGoal(post.fundraising_goal / 1e6);
+      setPercentRaised((post.fundraised * 100) / post.fundraising_goal);
+      // setRoyalty(post.royalty_percent);
+      // setPostStats([
+      //     postData.DiamondCount,
+      //     postData.LikeCount,
+      //     postData.CommentCount,
+      // ]);
 
-            const timestamp = Date.parse(post.timestamp);
-            setPostDate(
-                DateTime.fromMillis(timestamp).toLocaleString(DateTime.DATE_FULL)
-            );
-            setProgressBar(<div className="bg-blue-600 text-xs font-medium text-blue-100 text-center px-0.5 rounded" style={{ width: (post.fundraised * 100 / post.fundraising_goal).toFixed(2).toString() + "%", minWidth: "fit-content", maxWidth: "100%" }}>{(post.fundraised * 100 / post.fundraising_goal).toFixed(2)}%</div>)
-            setIsLoading(false);
-        }
-        fetchData();
-
-    }, [id]);
-
-    function sendTipFunc(id, amt_mutez) {
-        sendTip({ post_id: id, amount_mutez: amt_mutez });
-        setFundraised(fundraised + (amt_mutez / 1e6));
-        setPercentRaised((fundraised + (amt_mutez / 1e6)) * 100 / fundraisingGoal);
-        setProgressBar(<div className="bg-blue-600 text-xs font-medium text-blue-100 text-center px-0.5 rounded" style={{ width: ((fundraised + (amt_mutez / 1e6)) * 100 / fundraisingGoal).toFixed(2).toString() + "%", minWidth: "fit-content", maxWidth: "100%" }}>{((fundraised + (amt_mutez / 1e6)) * 100 / fundraisingGoal).toFixed(2)}%</div>)
-
+      const timestamp = Date.parse(post.timestamp);
+      setPostDate(
+        DateTime.fromMillis(timestamp).toLocaleString(DateTime.DATE_FULL)
+      );
+      setProgressBar(
+        <div
+          className='bg-blue-600 text-xs font-medium text-blue-100 text-center px-0.5 rounded'
+          style={{
+            width:
+              ((post.fundraised * 100) / post.fundraising_goal)
+                .toFixed(2)
+                .toString() + "%",
+            minWidth: "fit-content",
+            maxWidth: "100%",
+          }}>
+          {((post.fundraised * 100) / post.fundraising_goal).toFixed(2)}%
+        </div>
+      );
+      setIsLoading(false);
     }
+    fetchData();
+  }, [id]);
 
-    return (
-        <>
-            <Navbar title='Writez' />
+  function sendTipFunc(id, amt_mutez) {
+    sendTip({ post_id: id, amount_mutez: amt_mutez });
+    setFundraised(fundraised + amt_mutez / 1e6);
+    setPercentRaised(((fundraised + amt_mutez / 1e6) * 100) / fundraisingGoal);
+    setProgressBar(
+      <div
+        className='bg-blue-600 text-xs font-medium text-blue-100 text-center px-0.5 rounded'
+        style={{
+          width:
+            (((fundraised + amt_mutez / 1e6) * 100) / fundraisingGoal)
+              .toFixed(2)
+              .toString() + "%",
+          minWidth: "fit-content",
+          maxWidth: "100%",
+        }}>
+        {(((fundraised + amt_mutez / 1e6) * 100) / fundraisingGoal).toFixed(2)}%
+      </div>
+    );
+  }
 
-            <div className='mt-24 mx-auto md:w-3/4 px-4 md:px-16'>
-                {isLoading ? (
-                    <Loader />
-                ) : (
-                    <div>
-                        <div className='post-head'>
-                            <div className='flex'>
-                                <div className='p-2'>
-                                    {/* <img
+  return (
+    <>
+      <Navbar title='Writez' />
+
+      <div className='mt-24 mx-auto md:w-3/4 px-4 md:px-16'>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <div>
+            <div className='post-head'>
+              <div className='flex'>
+                <div className='p-2'>
+                  {/* <img
                                         src={`https://node.deso.org/api/v0/get-single-profile-picture/${posterKey}?fallback=https://node.deso.org/assets/img/default_profile_pic.png`}
                                         alt={`${postUsername}'s Avatar`}
                                         className='rounded-full h-12 w-12'
                                     /> */}
-                                </div>
-                                <div className='user-text p-2 text-gray-800'>
-                                    <div className='username font-bold hover:underline'>
-                                        {/* {postUsername ? postUsername.slice(0, 6) + "..." + postUsername.slice(-6) : "..."} */}
-                                        {postUsername ? postUsername : "..."}
-                                    </div>
-                                    <div className='post-date text-sm'>
-                                        {postDate}
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='text-4xl font-bold break-words my-5 mx-3'>
-                                {postTitle}
-                            </div>
-                        </div>
-
-                        <div className='cover-img py-4'>
-                            <img
-                                src={postCover}
-                                alt=''
-                                className='rounded-lg md:max-w-4xl w-full mx-auto'
-                            />
-                        </div>
-
-                        <ReactMarkdown
-                            className='post-content text-lg font  break-words unreset'
-                            rehypePlugins={[rehypeHighlight]}
-                            remarkPlugins={[remarkGfm]}>
-                            {postBody}
-                        </ReactMarkdown>
-
-                        <div className='title text-2xl font-bold separator my-5'>-</div>
-                        {/* <div>
+                </div>
+                <div className='user-text p-2 text-gray-800'>
+                  <div className='username font-bold hover:underline'>
+                    {/* {postUsername ? postUsername.slice(0, 6) + "..." + postUsername.slice(-6) : "..."} */}
+                    {postUsername ? postUsername : "..."}
+                  </div>
+                  <div className='post-date text-sm'>{postDate}</div>
+                </div>
+              </div>
+              <div className='text-4xl font-bold break-words my-5 mx-3'>
+                {postTitle}
+              </div>
+            </div>
+            <div className='cover-img py-4'>
+              <img
+                src={postCover}
+                alt=''
+                className='rounded-lg md:max-w-4xl w-full mx-auto'
+              />
+            </div>
+            <ReactMarkdown
+              className='post-content text-lg font  break-words unreset'
+              rehypePlugins={[rehypeHighlight]}
+              remarkPlugins={[remarkGfm]}>
+              {postBody}
+            </ReactMarkdown>
+            <div className='title text-2xl font-bold separator my-5'>-</div>
+            {/* <div>
                             {royalty} % royalty
                         </div>
                         <div>
                             {copiesRemaining} out of {copiesMax} copies left
                         </div> */}
-
-                        <div>
-                            {fundraised.toFixed(2)} <Image src={tezIcon} width={15} height={15} className="inline-block" /> of {fundraisingGoal} <Image src={tezIcon} width={15} height={15} className="inline-block" /> raised
-                        </div>
-                        <div className="w-full bg-gray-200 rounded">
-                            {progressBar}
-                        </div>
-                        <br />
-                        Send Tip
-                        <br />
-                        <div className="flex gap-2 text-center justify-center">
-                            <button className="bg-blue-300/50 p-1 px-5 rounded-lg hover:shadow-md ease-in-out transition-shadow duration-300" onClick={() => { sendTipFunc(id, 200000) }}>0.2<Image src={tezIcon} width={15} height={15} className="inline-block" /></button>
-                            <button className="bg-blue-300/50 p-1 px-5 rounded-lg hover:shadow-md ease-in-out transition-shadow duration-300" onClick={() => { sendTipFunc(id, 500000) }}>0.5<Image src={tezIcon} width={15} height={15} className="inline-block" /></button>
-                            <button className="bg-blue-300/50 p-1 px-5 rounded-lg hover:shadow-md ease-in-out transition-shadow duration-300" onClick={() => { sendTipFunc(id, 1000000) }}>1<Image src={tezIcon} width={15} height={15} className="inline-block" /></button>
-                            <button className="bg-blue-300/50 p-1 px-5 rounded-lg hover:shadow-md ease-in-out transition-shadow duration-300" onClick={() => { sendTipFunc(id, 2000000) }}>2<Image src={tezIcon} width={15} height={15} className="inline-block" /></button>
-                        </div>
-                        <div className='title text-2xl font-bold separator my-5'>-</div>
-                        {/* 
+            <div>
+              {fundraised.toFixed(2)}{" "}
+              <Image
+                src={tezIcon}
+                width={15}
+                height={15}
+                className='inline-block'
+              />{" "}
+              of {fundraisingGoal}{" "}
+              <Image
+                src={tezIcon}
+                width={15}
+                height={15}
+                className='inline-block'
+              />{" "}
+              raised
+            </div>
+            <div className='w-full bg-gray-200 rounded'>{progressBar}</div>
+            <br />
+            Send Tip
+            <br />
+            <div className='flex gap-2 text-center justify-center'>
+              <button
+                className='bg-blue-300/50 p-1 px-5 rounded-lg hover:shadow-md ease-in-out transition-shadow duration-300'
+                onClick={() => {
+                  sendTipFunc(id, 200000);
+                }}>
+                0.2
+                <Image
+                  src={tezIcon}
+                  width={15}
+                  height={15}
+                  className='inline-block'
+                />
+              </button>
+              <button
+                className='bg-blue-300/50 p-1 px-5 rounded-lg hover:shadow-md ease-in-out transition-shadow duration-300'
+                onClick={() => {
+                  sendTipFunc(id, 500000);
+                }}>
+                0.5
+                <Image
+                  src={tezIcon}
+                  width={15}
+                  height={15}
+                  className='inline-block'
+                />
+              </button>
+              <button
+                className='bg-blue-300/50 p-1 px-5 rounded-lg hover:shadow-md ease-in-out transition-shadow duration-300'
+                onClick={() => {
+                  sendTipFunc(id, 1000000);
+                }}>
+                1
+                <Image
+                  src={tezIcon}
+                  width={15}
+                  height={15}
+                  className='inline-block'
+                />
+              </button>
+              <button
+                className='bg-blue-300/50 p-1 px-5 rounded-lg hover:shadow-md ease-in-out transition-shadow duration-300'
+                onClick={() => {
+                  sendTipFunc(id, 2000000);
+                }}>
+                2
+                <Image
+                  src={tezIcon}
+                  width={15}
+                  height={15}
+                  className='inline-block'
+                />
+              </button>
+            </div>
+            <div className='title text-2xl font-bold separator my-5'>-</div>
+            {/* 
               <div className='tag-bar py-2 flex gap-2'>
                 {postTags.map((tag, idx) => {
                   return (
@@ -173,23 +250,21 @@ const Post = () => {
                 })}
               </div> 
             */}
-
-                        {/* <div className='comments mt-4' ref={commentElement}> */}
-                        {/*    <div className='title text-2xl font-bold separator'>Comments</div> */}
-                        {/* </div> */}
-
-                        {/* <StickyActionWidget
+            {/* <div className='comments mt-4' ref={commentElement}> */}
+            {/*    <div className='title text-2xl font-bold separator'>Comments</div> */}
+            {/* </div> */}
+            {/* <StickyActionWidget
                             id={id}
                             diamonds={postStats[0]}
                             likes={postStats[1]}
                             comments={postStats[2]}
                             commentEl={commentElement}
                         /> */}
-                    </div>
-                )}
-            </div>
-        </>
-    );
+          </div>
+        )}
+      </div>
+    </>
+  );
 };
 
 export default Post;
