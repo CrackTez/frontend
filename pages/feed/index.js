@@ -33,12 +33,13 @@ const Card = ({ post }) => {
   const url = `/post/${post.id}`;
   return (
     <div
-      className='max-w-sm rounded-md overflow-hidden shadow-lg bg-white text-black cursor-pointer mx-auto hover:scale-105 duration-75'
+      className='my-4 md:w-1/2 lg:w-1/3 mx-4 rounded-md overflow-hidden shadow-lg bg-white text-black cursor-pointer hover:scale-105 duration-75'
       onClick={() => {
         router.push(url);
       }}>
       <img
-        className='w-full shadow-lg rounded-md cursor-pointer'
+        className='shadow-lg rounded-t-md cursor-pointer' 
+      
         src={post.thumbnail_url}
         alt={post.title}
       />
@@ -82,9 +83,9 @@ export default function Posts() {
             id--;
           }
           setPostList(splicedNew);
-        } else{
+        } else {
           console.log("Some error happend while fetching posts");
-          console.log(posts)
+          console.log(posts);
         }
       } catch (e) {
         console.log(e);
@@ -94,12 +95,13 @@ export default function Posts() {
   }, []);
 
   return (
-    <div className='leading-normal tracking-normal text-white gradient'>
+    <div className='leading-normal tracking-normal text-white'>
       <Navbar title='Writez' gradient={true} />
+
       <div>
-        <div className='pt-24  mb-10 '>
+        <div className='pt-24 mb-10'>
           {postList.length > 0 ? (
-            <div className='p-10 mx-auto grid gap-5 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+            <div className='flex flex-wrap mx-auto  justify-center '>
               {/* Show latest posts here */}
               {postList}
             </div>

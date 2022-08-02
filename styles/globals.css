@@ -6,157 +6,180 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;700&display=swap");
 
 body,
 button,
 input,
 textarea {
-    font-family: "Manrope", "Segoe UI", sans-serif;
+  font-family: "Manrope", "Segoe UI", sans-serif;
 }
 
 /* body {
   font-family: "Source Sans Pro";
 } */
 
+@keyframes gradientColor {
+  0% {
+    background: linear-gradient(90deg, #3965dd 0%, #84b5f5 100%);
+  }
+  25% {
+    background: linear-gradient(90deg, #dd397d 0%, #f584d3 100%);
+  }
+  50% {
+    background: linear-gradient(90deg, #129663 0%, #6bdf9f 100%);
+  }
+  75% {
+    background: linear-gradient(90deg, #9b39dd 0%, #9899f3 100%);
+  }
+  100% {
+    background:linear-gradient(90deg, #3965dd 0%, #84b5f5 100%) ;
+  }
+}
 .gradient {
-    background: linear-gradient(90deg, #d53369 0%, #e0c485 100%);
+  background: linear-gradient(90deg, #3965dd 0%, #84b5f5 100%);
+
+
+  
+}
+
+.prevGrad {
+  background: linear-gradient(90deg, #3965dd 0%, #84b5f5 100%);
 }
 
 .tab {
-    @apply p-4 hover:text-blue-500 hover:border-b-blue-500 border-b-4 duration-300 cursor-pointer flex-grow md:flex-grow-0;
+  @apply p-4 hover:text-blue-500 hover:border-b-blue-500 border-b-4 duration-300 cursor-pointer flex-grow md:flex-grow-0;
 }
 
 .tab.active {
-    @apply border-b-blue-600 text-white bg-blue-600;
+  @apply border-b-blue-600 text-white bg-blue-600;
 }
 
 .markdown-container {
-    @apply w-full border border-gray-300 p-2 rounded-b-lg break-all;
+  @apply w-full border border-gray-300 p-2 rounded-b-lg break-all;
 }
 
 .no-ring {
-    @apply focus:shadow-none focus:ring-transparent;
+  @apply focus:shadow-none focus:ring-transparent;
 }
 
 .tag-badge {
-    @apply bg-slate-300 rounded-md p-1 mx-1;
+  @apply bg-slate-300 rounded-md p-1 mx-1;
 }
 
 .separator {
-    @apply flex items-center text-center before:content-[''] before:flex-1 before:border-b before:border-b-slate-700 after:content-[''] after:flex-1 after:border-b after:border-b-slate-700 before:mr-7 after:ml-7 w-4/5 mx-auto md:w-full;
+  @apply flex items-center text-center before:content-[''] before:flex-1 before:border-b before:border-b-slate-700 after:content-[''] after:flex-1 after:border-b after:border-b-slate-700 before:mr-7 after:ml-7 w-4/5 mx-auto md:w-full;
 }
 
 .active-outline {
-    @apply active:outline-gray-400 focus:outline-gray-400;
+  @apply active:outline-gray-400 focus:outline-gray-400;
 }
 
 .post-content img {
-    @apply mx-auto rounded-lg;
+  @apply mx-auto rounded-lg;
 }
 
 .post-content table {
-    @apply bg-gray-100;
+  @apply bg-gray-100;
 }
 
-.post-content tbody>tr {
-    @apply odd:bg-gray-200;
+.post-content tbody > tr {
+  @apply odd:bg-gray-200;
 }
 
 /* Unreset Elements */
 .unreset a {
-    @apply text-blue-700 underline;
+  @apply text-blue-700 underline;
 }
 
 .unreset p {
-    @apply my-4;
+  @apply my-4;
 }
 
 .unreset figure {
-    @apply my-4 mx-10;
+  @apply my-4 mx-10;
 }
 
 .unreset blockquote {
-    @apply border-l-8 border-gray-300 pl-6 mx-2;
+  @apply border-l-8 border-gray-300 pl-6 mx-2;
 }
 
 .unreset hr {
-    @apply border;
+  @apply border;
 }
 
 .unreset h1 {
-    @apply text-4xl font-bold my-2;
+  @apply text-4xl font-bold my-2;
 }
 
 .unreset h2 {
-    @apply text-2xl font-bold my-3;
+  @apply text-2xl font-bold my-3;
 }
 
 .unreset h3 {
-    @apply text-lg font-bold my-4;
+  @apply text-lg font-bold my-4;
 }
 
 .unreset h4 {
-    @apply text-base font-bold my-5;
+  @apply text-base font-bold my-5;
 }
 
 .unreset h5 {
-    @apply text-sm font-bold my-6;
+  @apply text-sm font-bold my-6;
 }
 
 .unreset h6 {
-    @apply text-xs font-bold my-10;
+  @apply text-xs font-bold my-10;
 }
-
 
 .unreset ul,
 .unreset menu {
-    @apply list-disc my-1 pl-10;
+  @apply list-disc my-1 pl-10;
 }
 
 .unreset ol {
-    @apply list-decimal my-4 pl-10;
+  @apply list-decimal my-4 pl-10;
 }
 
 .unreset ul,
-.unreset ol>ul {
-    list-style-type: circle;
+.unreset ol > ul {
+  list-style-type: circle;
 }
 
 .unreset dd {
-    @apply pl-10;
+  @apply pl-10;
 }
 
 .unreset dl {
-    @apply my-4;
+  @apply my-4;
 }
 
 .unreset legend {
-    @apply py-0 px-1;
+  @apply py-0 px-1;
 }
 
 .unreset fieldset {
-    @apply my-0 mx-1 pt-0 px-1 pb-2;
+  @apply my-0 mx-1 pt-0 px-1 pb-2;
 }
 
 .unreset b,
 .unreset strong {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .unreset pre {
-    @apply my-4;
+  @apply my-4;
 }
 
 .unreset td,
 th {
-    @apply border-collapse border-gray-800 p-1;
+  @apply border-collapse border-gray-800 p-1;
 }
 
 .unreset th {
-    @apply border-b-2;
+  @apply border-b-2;
 }
 
 .unreset code:not(.hljs) {
-    @apply p-1 text-red-400 bg-slate-100;
+  @apply p-1 text-red-400 bg-slate-100;
 }

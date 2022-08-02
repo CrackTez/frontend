@@ -1,36 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "./components/navbar";
 import landingIllustration from "./assets/landingIllustration.png";
 import { useRouter } from "next/router";
 import noAds from "./assets/noAds.svg";
 import goal from "./assets/goal.png";
-import revenue from "./assets/revenue.svg"
-import keyLock from "./assets/keyLock.svg"
+import revenue from "./assets/revenue.svg";
+import keyLock from "./assets/keyLock.svg";
 // import Login from "./Login";
 import Image from "next/image";
 export default function Landing() {
+  const [mainWord, setMainWord] = useState("Publish");
+  const [timeDelayCount, setTimeDelayCount] = useState(2);
   const router = useRouter();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeDelayCount(timeDelayCount + 1);
+      const testmainWord =
+        mainWord === "Publish"
+          ? "Own"
+          : mainWord == "Own"
+          ? "Fund"
+          : mainWord == "Fund"
+          ? "Monetize"
+          : "Publish";
+
+      setMainWord(testmainWord);
+    }, 1000 * 1.2);
+
+    return () => clearInterval(interval);
+  }, [timeDelayCount]);
+
   function gotoBlogsList() {
     router.push("/feed");
   }
 
   return (
-    <div className='leading-normal tracking-normal text-white gradient'>
+    <div className='leading-normal tracking-normal text-white gradient transition-transform'>
       <Navbar title='Writez' gradient={true} />
       <div>
         <div className='pt-24'>
           <div className='container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center'>
             <div className='flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left'>
               <h1 className='my-4 text-5xl font-bold leading-tight'>
-                Publish and own your blog posts like never before! 🔑
+               Publish, Own, and Fund your ideas like never before!
               </h1>
               <p className='leading-normal text-2xl mb-8'>
-                Write blog posts to blockchain, share ideas, and connect with
-                the global community without permission!
+                Write blog posts to blockchain, share ideas, raise funds and
+                connect with the global community without permission!
               </p>
-              <div
-                className='w-full flex-grow lg:flex lg:items-center lg:w-auto mt-2 lg:mt-0  lg:bg-transparent text-black p-4 lg:p-0 z-20'>
-                <button onClick={gotoBlogsList}
+              <div className='w-full flex-grow lg:flex lg:items-center lg:w-auto mt-2 lg:mt-0  lg:bg-transparent text-black p-4 lg:p-0 z-20'>
+                <button
+                  onClick={gotoBlogsList}
                   className='mx-auto lg:mx-0 hover:underline bg-white/50 text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out'>
                   Discover Latest Blogs
                 </button>
@@ -97,7 +118,7 @@ export default function Landing() {
                 </p>
               </div>
               <div className='w-full sm:w-1/3 p-6'>
-              <Image src={revenue} />
+                <Image src={revenue} />
               </div>
             </div>
             <div className='flex flex-wrap flex-col-reverse sm:flex-row'>
@@ -121,17 +142,15 @@ export default function Landing() {
               </div>
             </div>
 
-           
-
             <div className='flex flex-wrap flex-col-reverse sm:flex-row items-center'>
-              
               <div className='w-full sm:w-1/2 p-6 mt-6'>
                 <div className='align-middle'>
                   <h3 className='text-3xl text-gray-800 font-bold leading-none mb-3'>
                     Raise funds for your next idea!
                   </h3>
                   <p className='text-gray-600 mb-8'>
-                    With Writez, raising funds from the Internet becomes as easy as writing a blog post!
+                    With Writez, raising funds from the Internet becomes as easy
+                    as writing a blog post!
                     <br />
                     <br />
                   </p>
@@ -150,10 +169,18 @@ export default function Landing() {
               <div className='w-full sm:w-1/2 p-6 mt-6'>
                 <div className='align-middle'>
                   <h3 className='text-3xl text-gray-800 font-bold leading-none mb-3'>
-                   Be the owner. Not the product!
+                    Be the owner. Not the product!
                   </h3>
                   <p className='text-gray-600 mb-8'>
-                  Writez extends the famous <span className="font-bold">"Now your keys, not your coins" </span>to <span className="font-bold">"Not your keys, not your content"</span>. Own the content you create on your own terms!
+                    Writez extends the famous{" "}
+                    <span className='font-bold'>
+                      "Now your keys, not your coins"{" "}
+                    </span>
+                    to{" "}
+                    <span className='font-bold'>
+                      "Not your keys, not your content"
+                    </span>
+                    . Own the content you create on your own terms!
                     <br />
                     <br />
                   </p>
