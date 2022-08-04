@@ -4,9 +4,13 @@ const darkModeState = (props) => {
   const [isDark, setIsDark] = useState(false);
   useEffect(() => {
     const darkMode = localStorage.getItem("isDarkMode");
-    if (darkMode.toString()=="true") {
-      setIsDark(true);
+    if(darkMode){
+      if (darkMode.toString()=="true") {
+        setIsDark(true);
+      }
     }
+    localStorage.setItem("isDarkMode", isDark);
+  
   }
   , [])
   const updateState = (newState) => {
