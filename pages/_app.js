@@ -1,19 +1,21 @@
-import '../styles/globals.css'
-
+import "../styles/globals.css";
+import DarkModeState from "../Context/darkModeState";
 function SafeHydrate({ children }) {
   return (
     <div suppressHydrationWarning>
-      {typeof window === 'undefined' ? null : children}
+      {typeof window === "undefined" ? null : children}
     </div>
-  )
+  );
 }
 
 function MyApp({ Component, pageProps }) {
   return (
     <SafeHydrate>
-      <Component {...pageProps} />
-    </SafeHydrate >
-  )
+      <DarkModeState>
+        <Component {...pageProps} />
+      </DarkModeState>
+    </SafeHydrate>
+  );
 }
 
-export default MyApp
+export default MyApp;

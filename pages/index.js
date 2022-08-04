@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import Navbar from "./components/navbar";
 import landingIllustration from "./assets/landingIllustration.png";
 import { useRouter } from "next/router";
@@ -6,44 +6,32 @@ import noAds from "./assets/noAds.svg";
 import goal from "./assets/goal.png";
 import revenue from "./assets/revenue.svg";
 import keyLock from "./assets/keyLock.svg";
+
+import DarkModeContext from "../Context/DarkModeContext";
+
 // import Login from "./Login";
 import Image from "next/image";
 export default function Landing() {
-  const [mainWord, setMainWord] = useState("Publish");
-  const [timeDelayCount, setTimeDelayCount] = useState(2);
+  const contextValue = useContext(DarkModeContext);
+
   const router = useRouter();
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimeDelayCount(timeDelayCount + 1);
-      const testmainWord =
-        mainWord === "Publish"
-          ? "Own"
-          : mainWord == "Own"
-          ? "Fund"
-          : mainWord == "Fund"
-          ? "Monetize"
-          : "Publish";
-
-      setMainWord(testmainWord);
-    }, 1000 * 1.2);
-
-    return () => clearInterval(interval);
-  }, [timeDelayCount]);
 
   function gotoBlogsList() {
     router.push("/feed");
   }
 
   return (
-    <div className='leading-normal tracking-normal text-white gradient transition-transform'>
+    <div
+      className={`leading-normal tracking-normal text-white ${
+        contextValue.isDark ? "gradientDark" : "gradient"
+      } transition-transform`}>
       <Navbar title='Writez' gradient={true} />
       <div>
-        <div className='pt-24'>
+        <div className='pt-24 '>
           <div className='container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center'>
             <div className='flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left'>
               <h1 className='my-4 text-5xl font-bold leading-tight'>
-               Publish, Own, and Fund your ideas like never before!
+                Publish, Own, and Fund your ideas like never before!
               </h1>
               <p className='leading-normal text-2xl mb-8'>
                 Write blog posts to blockchain, share ideas, raise funds and
@@ -52,7 +40,9 @@ export default function Landing() {
               <div className='w-full flex-grow lg:flex lg:items-center lg:w-auto mt-2 lg:mt-0  lg:bg-transparent text-black p-4 lg:p-0 z-20'>
                 <button
                   onClick={gotoBlogsList}
-                  className='mx-auto lg:mx-0 hover:underline bg-white/50 text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out'>
+                  className={`mx-auto lg:mx-0 hover:underline ${
+                    contextValue.isDark ? "darkBtn" : "lightBtn"
+                  } font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out`}>
                   Discover Latest Blogs
                 </button>
               </div>
@@ -65,7 +55,7 @@ export default function Landing() {
             </div>
           </div>
         </div>
-        <div className='relative -mt-12 lg:-mt-24'>
+        <div className='relative -mt-12 lg:-mt-24 '>
           <svg
             viewBox='0 0 1428 174'
             version='1.1'
@@ -74,7 +64,7 @@ export default function Landing() {
             <g stroke='none' strokeWidth='1' fill='none' fillRule='evenodd'>
               <g
                 transform='translate(-2.000000, 44.000000)'
-                fill='#FFFFFF'
+                fill={`${contextValue.isDark ? "#1B2233" : "#FFFFFF"}`}
                 fillRule='nonzero'>
                 <path
                   d='M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496'
@@ -89,7 +79,7 @@ export default function Landing() {
               </g>
               <g
                 transform='translate(-4.000000, 76.000000)'
-                fill='#FFFFFF'
+                fill={`${contextValue.isDark ? "#1b2744" : "#FFFFFF"}`}
                 fillRule='nonzero'>
                 <path d='M0.457,34.035 C57.086,53.198 98.208,65.809 123.822,71.865 C181.454,85.495 234.295,90.29 272.033,93.459 C311.355,96.759 396.635,95.801 461.025,91.663 C486.76,90.01 518.727,86.372 556.926,80.752 C595.747,74.596 622.372,70.008 636.799,66.991 C663.913,61.324 712.501,49.503 727.605,46.128 C780.47,34.317 818.839,22.532 856.324,15.904 C922.689,4.169 955.676,2.522 1011.185,0.432 C1060.705,1.477 1097.39,3.129 1121.236,5.387 C1161.703,9.219 1208.621,17.821 1235.4,22.304 C1285.855,30.748 1354.351,47.432 1440.886,72.354 L1441.191,104.352 L1.121,104.031 L0.457,34.035 Z'></path>
               </g>
@@ -97,9 +87,12 @@ export default function Landing() {
           </svg>
         </div>
 
-        <section className='bg-white border-b py-8'>
+        <section
+          className={`${
+            contextValue.isDark ? "darkBg lightText" : "bg-white darkText"
+          } py-8`}>
           <div className='container max-w-5xl mx-auto m-8'>
-            <h1 className='w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800'>
+            <h1 className='w-full my-2 text-5xl font-bold leading-tight text-center '>
               Why Writez?
             </h1>
             <div className='w-full mb-4'>
@@ -107,31 +100,37 @@ export default function Landing() {
             </div>
             <div className='flex flex-wrap'>
               <div className='w-5/6 sm:w-1/2 p-6'>
-                <h3 className='text-3xl text-gray-800 font-bold leading-none mb-3'>
+                <h3 className='text-3xl  font-bold leading-none mb-3'>
                   Earn Revenue
                 </h3>
-                <p className='text-gray-600 mb-8'>
+                <p
+                  className={`${
+                    contextValue.isDark ? "lessLightText" : "lessDarkText"
+                  }  mb-8`}>
                   Earn revenue through your blog posts through social tippings
                   and NFT sales of your blogs!
                   <br />
                   <br />
                 </p>
               </div>
-              <div className='w-full sm:w-1/3 p-6'>
+              <div className='w-full sm:w-1/3 px-16'>
                 <Image src={revenue} />
               </div>
             </div>
             <div className='flex flex-wrap flex-col-reverse sm:flex-row'>
-              <div className='w-full sm:w-1/3 p-6 mt-6'>
+              <div className='w-full sm:w-1/3 p-6 '>
                 {/* <img src={noAds}></img> */}
                 <Image src={noAds} />
               </div>
               <div className='w-full sm:w-1/2 p-6 mt-6'>
                 <div className='align-middle'>
-                  <h3 className='text-3xl text-gray-800 font-bold leading-none mb-3'>
+                  <h3 className='text-3xl  font-bold leading-none mb-3'>
                     No Ads!
                   </h3>
-                  <p className='text-gray-600 mb-8'>
+                  <p
+                    className={`${
+                      contextValue.isDark ? "lessLightText" : "lessDarkText"
+                    }  `}>
                     Ads and annoying popups are such a web2 thing. With Writez,
                     you can read and write content withot time consuming ads and
                     popups!
@@ -143,12 +142,15 @@ export default function Landing() {
             </div>
 
             <div className='flex flex-wrap flex-col-reverse sm:flex-row items-center'>
-              <div className='w-full sm:w-1/2 p-6 mt-6'>
+              <div className='w-full sm:w-1/2 p-6'>
                 <div className='align-middle'>
-                  <h3 className='text-3xl text-gray-800 font-bold leading-none mb-3'>
+                  <h3 className='text-3xl  font-bold leading-none mb-3'>
                     Raise funds for your next idea!
                   </h3>
-                  <p className='text-gray-600 mb-8'>
+                  <p
+                    className={`${
+                      contextValue.isDark ? "lessLightText" : "lessDarkText"
+                    }  mb-8`}>
                     With Writez, raising funds from the Internet becomes as easy
                     as writing a blog post!
                     <br />
@@ -162,23 +164,26 @@ export default function Landing() {
               </div>
             </div>
             <div className='flex flex-wrap flex-col-reverse sm:flex-row items-center'>
-              <div className='w-full sm:w-1/3 p-6 mt-6'>
+              <div className=' sm:w-1/3 px-20 '>
                 {/* <img src={noAds}></img> */}
                 <Image src={keyLock} />
               </div>
               <div className='w-full sm:w-1/2 p-6 mt-6'>
                 <div className='align-middle'>
-                  <h3 className='text-3xl text-gray-800 font-bold leading-none mb-3'>
+                  <h3 className='text-3xl  font-bold leading-none mb-3'>
                     Be the owner. Not the product!
                   </h3>
-                  <p className='text-gray-600 mb-8'>
+                  <p
+                    className={`${
+                      contextValue.isDark ? "lessLightText" : "lessDarkText"
+                    }  `}>
                     Writez extends the famous{" "}
                     <span className='font-bold'>
-                      "Now your keys, not your coins"{" "}
+                      &quot;Not your keys, not your coins&quot;{" "}
                     </span>
                     to{" "}
                     <span className='font-bold'>
-                      "Not your keys, not your content"
+                      &quot;Not your keys, not your content&quot;
                     </span>
                     . Own the content you create on your own terms!
                     <br />

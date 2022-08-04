@@ -38,9 +38,47 @@ textarea {
 }
 .gradient {
   background: linear-gradient(90deg, #3965dd 0%, #84b5f5 100%);
+}
+.gradientDark {
+  background: linear-gradient(90deg, #101b3a 0%, #2b425f 100%);
+}
 
+.darkBg{
+  background: #1b2744;
+}
 
-  
+.darkText{
+  @apply text-gray-800;
+}
+
+.lessDarkText{
+  @apply text-gray-600;
+}
+.lightText{
+  @apply text-gray-100;
+}
+
+.lessLightText{
+  @apply text-gray-200;
+}
+
+.darkBtn{
+  @apply text-white bg-blue-500;
+}
+
+.lightBtn{
+  @apply bg-white/50 text-gray-800 
+}
+.gradientDark {
+  background: linear-gradient(90deg, #101b3a 0%, #2b425f 100%);
+}
+
+.darkForm{
+  @apply bg-[#2b3b61] text-gray-100 focus:outline-none  focus:border-[#32446d];
+}
+
+.lightForm{
+  @apply bg-white text-gray-800 focus:outline-none border;
 }
 
 .prevGrad {
@@ -50,11 +88,15 @@ textarea {
 .tab {
   @apply p-4 hover:text-blue-500 hover:border-b-blue-500 border-b-4 duration-300 cursor-pointer flex-grow md:flex-grow-0;
 }
-
-.tab.active {
-  @apply border-b-blue-600 text-white bg-blue-600;
+.tabDark{
+  @apply border-[#121b30] text-gray-200 p-4 hover:text-blue-500 hover:border-b-blue-500 border-b-4 duration-300 cursor-pointer flex-grow md:flex-grow-0;
 }
-
+.tabDark.active {
+  @apply border-b-blue-600 text-white bg-blue-600 ;
+}
+.active {
+  @apply border-b-blue-600 text-white bg-blue-600 ;
+}
 .markdown-container {
   @apply w-full border border-gray-300 p-2 rounded-b-lg break-all;
 }
