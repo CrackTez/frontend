@@ -13,7 +13,6 @@ export default function Navbar(props) {
     //store the mode in local storage
     localStorage.setItem("isDarkMode", !contextValue.isDark);
     contextValue.updateState(!contextValue.isDark);
-    setIsDarkMode(!contextValue.isDark);
   };
   return (
     <nav
