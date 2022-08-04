@@ -1,6 +1,6 @@
 import React, { useState, useRef, useContext } from "react";
 import TextBarButton from "./TextBarButton";
-import DarkModeContext from "../../Context/DarkModeContext";
+import DarkModeContext from "../Context/DarkModeContext";
 const TextEditorBar = ({ currentTab, setCurrentTab, onBarBtnClicked }) => {
   const [headDropOpen, setHeadDropOpen] = useState(false);
   const imgInput = useRef();

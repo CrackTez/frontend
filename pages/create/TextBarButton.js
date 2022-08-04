@@ -1,5 +1,5 @@
 import {React, useContext} from 'react'
-import DarkModeContext from "../../Context/DarkModeContext";
+import DarkModeContext from "../Context/DarkModeContext";
 const TextBarButton = ({ icon, style, onClickHandler }) => {
   const contextValue = useContext(DarkModeContext);
   return (

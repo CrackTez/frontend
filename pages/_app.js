@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import DarkModeState from "../Context/darkModeState";
+import DarkModeState from "../Context/DarkModeState";
 function SafeHydrate({ children }) {
   return (
     <div suppressHydrationWarning>
