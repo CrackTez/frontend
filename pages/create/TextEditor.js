@@ -126,9 +126,9 @@ const TextEditor = ({
       </div>
 
       {/* Preview + Guide Tab */}
-      <div className={`preview-md ${![1, 2].includes(currentTab) && "hidden"} ${contextValue.isDark? "text-gray-100": ""}`}>
+      <div className={`preview-md ${![1, 2].includes(currentTab) && "hidden"} ${contextValue.isDark? "text-gray-100 border-[#121e3a]": ""} border-2  rounded-b-lg`}>
         <ReactMarkdown
-          className='markdown-container unreset'
+          className='markdown-container unreset min-h-screen border-none outline-none '
           rehypePlugins={[rehypeHighlight]}
           remarkPlugins={[remarkGfm]}>
           {currentTab == 1 ? bodyText : guideText}
