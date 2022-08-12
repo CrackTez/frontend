@@ -6,7 +6,8 @@ import DarkModeContext from "../../Context/DarkModeContext";
 import TextEditorBar from "./TextEditorBar";
 
 import guideText from "../../utils/GuideText";
-
+import hljs from 'highlight.js';
+import 'highlight.js/styles/github.css';
 const TextEditor = ({
   titleText,
   bodyText,
@@ -53,6 +54,7 @@ const TextEditor = ({
       // @todo Make it more reliable and prevent from changing the image tags at other places
       const newText = outText.replace("![](Loading...)", `![](${response})`);
       setBodyText(newText);
+      localStorage.setItem("bodyText", newText);
       console.log(newText);
       bodyTextArea.current.readonly = false;
     }
@@ -61,11 +63,16 @@ const TextEditor = ({
 
   const onTitleChange = (e) => {
     setTitleText(e.target.value);
+    localStorage.setItem("title", e.target.value);
     updateHeight(titleTextArea, 50);
   };
 
   const onBodyChange = (e) => {
     setBodyText(e.target.value);
+    //check if the last text is space
+    if (e.target.value.endsWith(" ")) {
+      localStorage.setItem("bodyText", e.target.value);
+    } 
     updateHeight(bodyTextArea, 300); // 296
   };
 
@@ -128,7 +135,7 @@ const TextEditor = ({
       {/* Preview + Guide Tab */}
       <div className={`preview-md ${![1, 2].includes(currentTab) && "hidden"} ${contextValue.isDark? "text-gray-100 border-[#121e3a]": ""} border-2  rounded-b-lg`}>
         <ReactMarkdown
-          className='markdown-container unreset min-h-screen border-none outline-none '
+          className={`markdown-container unreset min-h-screen border-none outline-none ${contextValue.isDark? "unresetDark": "unresetLight"}`}
           rehypePlugins={[rehypeHighlight]}
           remarkPlugins={[remarkGfm]}>
           {currentTab == 1 ? bodyText : guideText}

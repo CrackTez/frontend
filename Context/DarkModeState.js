@@ -1,7 +1,7 @@
 import darkModeContext from "./DarkModeContext";
 import { useState, useEffect } from "react";
 const darkModeState = (props) => {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
   useEffect(() => {
     const darkMode = localStorage.getItem("isDarkMode");
     if(darkMode){

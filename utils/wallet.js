@@ -54,6 +54,7 @@ const createPost = async ({ ipfs_url, title, thumbnail_url, frGoal = 0 }) => {
     title
   ).send();
   await op.confirmation();
+  return op
 }
 
 const sendTip = async ({ post_id, amount_mutez }) => {

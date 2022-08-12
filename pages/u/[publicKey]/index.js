@@ -1,13 +1,15 @@
 import { useEffect, useState, useContext } from "react";
-import Navbar from "../components/navbar";
+import Navbar from "../../components/navbar";
 import { useRouter } from "next/router";
 import axios from "axios";
-import * as config from "../../config";
-import Loader from "../../utils/Loader";
-import DarkModeContext from "../../Context/DarkModeContext";
-import defaultPFP from "../assets/defaultPFP.png";
-import tezIcon from "../assets/tezos.svg";
+import * as config from "../../../config";
+import Loader from "../../../utils/Loader";
+import DarkModeContext from "../../../Context/DarkModeContext";
+import defaultPFP from "../../assets/defaultPFP.png"
 import Image from "next/image";
+import tezIcon from "../../assets/tezos.svg";
+
+
 
 function timeDifference(previous) {
   var current = Date.now();
@@ -94,21 +96,21 @@ const Card = ({
           {timeDifference(Date.parse(timestamp))}
         </p>
         <div className={`${isDark ? "lessLightText" : ""} mt-4 justify-end`}>
-        {Math.round(fundraised / 1e5) / 10}
+          {fundraised}{" "}
           <Image
             src={tezIcon}
             width={15}
             height={15}
             className='inline-block'
-          />
+          />{" "}
           / {Math.round(fundraising_goal / 1e5) / 10}
           <Image
             src={tezIcon}
             width={15}
             height={15}
             className='inline-block'
-          />
-        
+          />{" "}
+          raised
         </div>
       </div>
     </div>
@@ -116,40 +118,38 @@ const Card = ({
 };
 
 export default function Posts() {
+  const router = useRouter();
+  const { publicKey } = router.query;
+  console.log(publicKey);
   const contextValue = useContext(DarkModeContext);
-  const [responseList, setResponseList] = useState([]);
+  const [responseList, setResponseList] = useState(null);
   const [errorHappened, setErrorHappened] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     async function getPosts() {
-      var requestPayload = {
-        net: config.NETWORK,
-        lastID: "",
-        numToFetch: 30,
-      };
+      if (!publicKey) return;
+      setIsLoading(true);
       try {
-        const posts = await axios({
-          method: "post",
-          url: `https://tipdeso.com/get-feed`,
-          data: requestPayload,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        if (posts.data) {
-          //reverse the posts.data.posts array
-          setResponseList(posts.data.posts.reverse());
-          //setResponseList(posts.data.posts);
+        const res = await axios.post(
+          "https://tipdeso.com/get-posts-by-author",
+          { author: publicKey, net: "testnet" }
+        );
+        if (res.data) {
+          console.log(res.data);
+          setResponseList(res.data.posts);
         } else {
           setErrorHappened(true);
-          window.location.reload();
+          //window.location.reload();
         }
       } catch (e) {
+        console.log(e);
         setErrorHappened(true);
-        window.location.reload();
+        //window.location.reload();
       }
+      setIsLoading(false);
     }
     getPosts();
-  }, []);
+  }, [publicKey]);
 
   return (
     <div
@@ -157,51 +157,72 @@ export default function Posts() {
         contextValue.isDark ? "darkBg" : ""
       } leading-normal tracking-normal min-h-screen`}>
       <Navbar title='Writez' gradient={true} />
+      {isLoading ? (
+        <div className='h-screen mx-auto pt-20'>
+          <Loader />
+        </div>
+      ) : errorHappened ? (
+        <div className='h-screen mx-auto pt-20'>
+          <p
+            className={`${
+              contextValue.isDark ? "text-white" : "text-dark"
+            } text-xl text-center pt-10`}>
+            Error while loading post. Retrying...
+          </p>
+        </div>
+      ) : (
+        <div>
+          <div
+            className={`${
+              contextValue.isDark ? "secondaryDark" : "secondaryLight"
+            } h-56 sm:h-72`}></div>
+          <div className='topBar pt-4 flex mx-auto justify-center'>
+            <div className='flex items-center space-x-2 '>
+              <div className='w-16 h-16 sm:w-28 sm:h-28'>
+                <Image src={defaultPFP} className='rounded-full' />
+              </div>
 
-      <div>
-        <div className={`${contextValue.isDark ? "darkBg" : ""} pt-24 pb-10`}>
-          {responseList.length > 0 ? (
-            <div>
               <p
                 className={`${
-                  contextValue.isDark ? "lightText" : "textDark"
-                } text-3xl text-center my-3`}>
-                Trending Blogs
+                  contextValue.isDark
+                    ? "lightText secondaryDark  hover:bg-[#354875]"
+                    : "bg-gray-200 hover:bg-gray-300  "
+                } text-sm sm:text-lg px-4 py-2 rounded-lg`}>
+                {publicKey}
               </p>
-              <div className='flex flex-wrap  mx-auto  justify-center '>
-                {/*  We gotta add infinite scrollbar too. and idk how to the api response work. lmk and i add fix that    */}
-
-                {responseList.map((post, index) => {
-                  return (
-                    <Card
-                      key={post["idKey"]}
-                      keyValue={post["idKey"]}
-                      title={post["title"]}
-                      author={post["author"]}
-                      thumbnailHash={post["thumbnailHash"]}
-                      timestamp={post["timestamp"]}
-                      isDark={contextValue.isDark}
-                      fundraising_goal={post["fundraising_goal"]}
-                      fundraised={post["fundraised"]}
-                    />
-                  );
-                })}
-              </div>
             </div>
-          ) : errorHappened ? (
+          </div>
+          <div className='mt-6'>
             <p
               className={`${
-                contextValue.isDark ? "text-white" : "text-dark"
-              } text-xl text-center pt-10`}>
-              Error while loading post. Retrying...
-            </p>
-          ) : (
-            <div className='flex justify-center my-4'>
-              <Loader />{" "}
+                contextValue.isDark ? "lightText" : "darkText"
+              } text-center text-2xl  `}>{`Contents Posted`}</p>
+            <div className='my-t pb-4 flex flex-wrap mx-auto  justify-center '>
+              {Object.keys(responseList).length > 0 ? (
+                Object.keys(responseList).map((key) => {
+                  return (
+                    <Card
+                      key={responseList[key]["idKey"]}
+                      keyValue={responseList[key]["idKey"]}
+                      title={responseList[key]["title"]}
+                      author={responseList[key]["author"]}
+                      thumbnailHash={responseList[key]["thumbnailHash"]}
+                      timestamp={responseList[key]["timestamp"]}
+                      isDark={contextValue.isDark}
+                      fundraising_goal={responseList[key]["fundraising_goal"]}
+                      fundraised={responseList[key]["fundraised"]}
+                    />
+                  );
+                })
+              ) : (
+                <div className={`text-center mt-3 text-xl ${contextValue.isDark? "lightText": ""}`}>
+                  This user has not posted anything on Writez yet
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

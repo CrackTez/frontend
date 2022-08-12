@@ -33,7 +33,7 @@ textarea {
     background: linear-gradient(90deg, #9b39dd 0%, #9899f3 100%);
   }
   100% {
-    background:linear-gradient(90deg, #3965dd 0%, #84b5f5 100%) ;
+    background: linear-gradient(90deg, #3965dd 0%, #84b5f5 100%);
   }
 }
 .gradient {
@@ -43,41 +43,69 @@ textarea {
   background: linear-gradient(90deg, #101b3a 0%, #2b425f 100%);
 }
 
-.darkBg{
+.darkBg {
   background: #1b2744;
 }
 
-.darkText{
+.darkText {
   @apply text-gray-800;
 }
 
-.lessDarkText{
+.lessDarkText {
   @apply text-gray-600;
 }
-.lightText{
+.lightText {
   @apply text-gray-100;
 }
 
-.lessLightText{
+.lessLightText {
   @apply text-gray-200;
 }
-
-.darkBtn{
-  @apply text-white bg-blue-500;
+.leastLightText {
+  @apply text-gray-300;
 }
 
-.lightBtn{
-  @apply bg-white/50 text-gray-800 
+.darkBtn {
+  @apply shadow-md shadow-gray-800 bg-gradient-to-r from-[#5651e5] to-[#709dff] text-white hover:bg-gradient-to-r from-[#4a46b4] to-[#709dff] hover:text-white;
+}
+
+.lightBtn {
+  @apply shadow-md shadow-blue-700   bg-gradient-to-r from-[#393663] to-[#2e5bba] text-white;
+}
+
+.miniLightBtn {
+  @apply rounded-xl ease-in-out transition-shadow duration-300 hover:bg-gray-200 hover:bg-opacity-50  ;
 }
 .gradientDark {
   background: linear-gradient(90deg, #101b3a 0%, #2b425f 100%);
 }
 
-.darkForm{
+.darkForm {
   @apply bg-[#2b3b61] text-gray-100 focus:outline-none  focus:border-[#32446d];
 }
 
-.lightForm{
+.darkContainer {
+  @apply bg-[#2b3b61] text-gray-100 focus:outline-none  focus:border-[#32446d];
+}
+
+.secondaryDark {
+  @apply bg-[#253866];
+}
+
+.secondaryLight{
+  @apply bg-[#f5f5f5];
+}
+
+.thirdDark{
+  @apply bg-[#354875];
+}
+.secondaryLight{
+  @apply bg-blue-100;
+}
+.thirdLight{
+  @apply bg-gray-100;
+}
+.lightForm {
   @apply bg-white text-gray-800 focus:outline-none border;
 }
 
@@ -88,14 +116,14 @@ textarea {
 .tab {
   @apply p-4 hover:text-blue-500 hover:border-b-blue-500 border-b-4 duration-300 cursor-pointer flex-grow md:flex-grow-0;
 }
-.tabDark{
+.tabDark {
   @apply border-[#121b30] text-gray-200 p-4 hover:text-blue-500 hover:border-b-blue-500 border-b-4 duration-300 cursor-pointer flex-grow md:flex-grow-0;
 }
 .tabDark.active {
-  @apply border-b-blue-600 text-white bg-blue-600 ;
+  @apply border-b-blue-600 text-white bg-blue-600;
 }
 .active {
-  @apply border-b-blue-600 text-white bg-blue-600 ;
+  @apply border-b-blue-600 text-white bg-blue-600;
 }
 .markdown-container {
   @apply w-full border border-gray-300 p-2 rounded-b-lg break-all;
@@ -118,7 +146,7 @@ textarea {
 }
 
 .post-content img {
-  @apply mx-auto rounded-lg;
+  @apply mx-auto rounded-lg ;
 }
 
 .post-content table {
@@ -132,6 +160,10 @@ textarea {
 /* Unreset Elements */
 .unreset a {
   @apply text-blue-700 underline;
+}
+
+.unresetDark a {
+  @apply text-blue-200 underline;
 }
 
 .unreset p {
@@ -149,6 +181,7 @@ textarea {
 .unreset hr {
   @apply border;
 }
+
 
 .unreset h1 {
   @apply text-4xl font-bold my-2;
@@ -222,6 +255,51 @@ th {
   @apply border-b-2;
 }
 
+
+.unresetLight .hljs{
+  @apply bg-gray-100 text-black rounded-md my-4;
+}
+.unresetLight .hljs .hljs-keyword {
+  @apply text-red-400;
+}
+.unresetLight .hljs .hljs-string {
+  @apply text-green-600;
+}
+.unresetLight .hljs .hljs-literal {
+  @apply text-yellow-600;
+}
+.unresetLight .hljs .hljs-built_in {
+  @apply text-blue-500;
+}
+
+.unresetDark code{
+  @apply bg-[#2a4072] text-white rounded-md my-4;
+}
+
+
+.unresetDark .hljs .hljs-keyword {
+  @apply text-red-400;
+}
+.unresetDark .hljs .hljs-string {
+  @apply text-green-400;
+}
+.unresetDark .hljs .hljs-literal {
+  @apply text-yellow-400;
+}
+.unresetDark .hljs .hljs-built_in {
+  @apply text-blue-300;
+}
+
 .unreset code:not(.hljs) {
-  @apply p-1 text-red-400 bg-slate-100;
+  @apply p-1 text-gray-900 bg-slate-100 px-2 rounded-xl;
+}
+
+.unresetDark code:not(.hljs) {
+  @apply p-1 text-gray-100 bg-[#344d88] px-4  rounded-2xl;
+}
+
+
+
+.unresetLight code:not(.hljs) {
+  @apply p-1 text-gray-900 bg-gray-100 px-4  rounded-2xl;
 }

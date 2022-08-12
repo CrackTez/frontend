@@ -1,19 +1,22 @@
-import { create, urlSource } from 'ipfs-http-client';
+import axios from "axios";
+import * as config from "../config";
 
-const ipfs = create({ url: 'https://ipfs.infura.io:5001', protocol: 'https' });
-
-const uploadToIpfs = async (text) => {
-  let textBuffer = new Buffer.from(text);
-  const f = await ipfs.add(textBuffer);
-  const url = "https://ipfs.infura.io/ipfs/" + f.cid.toString();
-  return url;
-}
-
-const uploadToIpfsFromUrl = async (url) => {
-  const f = await ipfs.add(urlSource(url));
-  const urlipfs = "https://ipfs.infura.io/ipfs/" + f.cid.toString();
-  return urlipfs;
-}
+const uploadFileToIPFS = async (formData) => {
+  const resFile = await axios({
+    method: "post",
+    url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
+    data: formData,
+    headers: {
+      pinata_api_key: config.API_KEY_PINATA,
+      pinata_secret_api_key: config.API_KEY_SECRET_PINATA,
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  const ImgHash = resFile.data.IpfsHash;
+  const imgURL = config.IPFS_GATEWAY + ImgHash;
+  console.log(imgURL);
+  return imgURL;
+};
 
 const getFromIpfs = async (CIDHash) => {
   const resp = ipfs.cat(CIDHash);
@@ -21,8 +24,8 @@ const getFromIpfs = async (CIDHash) => {
   for await (const chunk of resp) {
     content = [...content, ...chunk];
   }
-  const raw = Buffer.from(content).toString('utf8');
+  const raw = Buffer.from(content).toString("utf8");
   return raw;
-}
+};
 
-export { uploadToIpfs, getFromIpfs, uploadToIpfsFromUrl };
+export { getFromIpfs, uploadFileToIPFS };
