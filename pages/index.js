@@ -281,7 +281,7 @@ export default function Landing() {
               </a>
 
               <a
-                href='https://github.com/HackTez'
+                href='https://github.com/CrackTez'
                 rel='noreferrer'
                 target={"_blank"}
                 className='text-gray-600'>

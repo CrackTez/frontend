@@ -256,6 +256,7 @@ th {
 }
 
 
+
 .unresetLight .hljs{
   @apply bg-gray-100 text-black rounded-md my-4;
 }
@@ -276,7 +277,9 @@ th {
   @apply bg-[#2a4072] text-white rounded-md my-4;
 }
 
-
+.unreset code{
+  @apply max-w-2xl;
+}
 .unresetDark .hljs .hljs-keyword {
   @apply text-red-400;
 }
@@ -291,11 +294,11 @@ th {
 }
 
 .unreset code:not(.hljs) {
-  @apply p-1 text-gray-900 bg-slate-100 px-2 rounded-xl;
+  @apply p-0.5 text-gray-900 bg-slate-100 px-1 rounded-xl;
 }
 
 .unresetDark code:not(.hljs) {
-  @apply p-1 text-gray-100 bg-[#344d88] px-4  rounded-2xl;
+  @apply p-0.5 text-gray-100 bg-[#344d88] px-1  rounded-2xl;
 }
 
 

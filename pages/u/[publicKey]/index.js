@@ -132,7 +132,7 @@ export default function Posts() {
       try {
         const res = await axios.post(
           "https://tipdeso.com/get-posts-by-author",
-          { author: publicKey, net: "testnet" }
+          { author: publicKey, net: config.NETWORK }
         );
         if (res.data) {
           console.log(res.data);

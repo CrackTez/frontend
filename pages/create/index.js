@@ -10,6 +10,8 @@ import DarkModeContext from "../../Context/DarkModeContext";
 import Loader from "../Loader";
 import axios from "axios";
 import Link from "next/link";
+import Head from "next/head";
+import * as config from "../../config";
 export default function Create() {
   const [walletAddress, setWalletAddress] = useState();
   const contextValue = useContext(DarkModeContext);
@@ -163,18 +165,21 @@ export default function Create() {
 
     console.log(postResponse);
     if (postResponse) {
-      try{
-        const syncRes = await axios.get("https://tipdeso.com/sync-testnet");
+      try {
+        const syncRes = await axios.get(
+          `https://tipdeso.com/sync-${
+            config.NETWORK == "jakartanet" ? "testnet" : "mainnet"
+          }`
+        );
         console.log(syncRes);
-      }
-      catch(err){
+      } catch (err) {
         console.log(err);
       }
-    localStorage.removeItem("postCover");
-    //localStorage.removeItem("postTags");
-    localStorage.removeItem("postBody");
-    localStorage.removeItem("postTitle");
-    localStorage.removeItem("postFundraisingAmt");
+      localStorage.removeItem("postCover");
+      //localStorage.removeItem("postTags");
+      localStorage.removeItem("bodyText");
+      localStorage.removeItem("postTitle");
+      localStorage.removeItem("postFundraisingAmt");
 
       setIsPostSuccess(true);
       setLogValue("Your blog has been posted to Blockchain!");
@@ -302,7 +307,7 @@ export default function Create() {
                   contextValue.isDark ? "darkForm" : "lightForm"
                 }  text-sm rounded-lg  block w-full p-2.5 mb-6`}
                 placeholder='e.g 100Tez'
-                value={(fundraisingAmt/1e6).toString()}
+                value={(fundraisingAmt / 1e6).toString()}
                 onChange={(e) => {
                   setFundraisingAmt(Math.abs(e.target.value * 1e6));
                   localStorage.setItem(

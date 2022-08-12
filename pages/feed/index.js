@@ -54,7 +54,7 @@ const Card = ({
       }}>
       <div
         style={{
-          backgroundImage: `url(${config.IPFS_GATEWAY + thumbnailHash})`,
+          backgroundImage: `url(${config.LIST_OF_GATEWAYS[1] + thumbnailHash})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

@@ -17,6 +17,8 @@ import DarkModeContext from "../../../Context/DarkModeContext";
 import hljs from "highlight.js";
 import "highlight.js/styles/github.css";
 import * as config from "../../../config";
+import Head from "next/head";
+
 //chagne theme of hljs to VS Code dark theme
 const Post = () => {
   const router = useRouter();
@@ -51,7 +53,7 @@ const Post = () => {
       try {
         const response = await axios.post(
           "https://tipdeso.com/get-post-by-id",
-          { id: id, net: "testnet" }
+          { id: id, net: config.NETWORK }
         );
         console.log(`this is reponse ${response.data}`);
         const post = response.data;
@@ -153,6 +155,12 @@ const Post = () => {
 
   return (
     <div>
+      <Head>
+        <meta property='og:title' content={postTitle} />
+        <title>{postTitle}</title>
+
+        <meta property='og:url' content={"https://www.writez.xyz/post/" + id} />
+      </Head>
       <Navbar title='Writez' />
       <div className={`${contextValue.isDark ? "darkBg" : ""} pb-10`}>
         {isLoading ? (

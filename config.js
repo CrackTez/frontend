@@ -1,10 +1,13 @@
 export const NAME = "TZ Blog App";
-export const CONTRACT_ADDRESS = "KT1FHtvk6RLLvcxEj94Dd45HGrTP21s6rf9Y";
-export const RPC_URL = "https://jakartanet.smartpy.io"; // network rpc url
-export const NETWORK = "jakartanet";
+//export const CONTRACT_ADDRESS = "KT1FHtvk6RLLvcxEj94Dd45HGrTP21s6rf9Y"; //for test net
+export const CONTRACT_ADDRESS = "KT1Q1HQ95PgjSDy7Dk2eGvDfkHyNqGxoFWLi";
+//export const RPC_URL = "https://jakartanet.smartpy.io"; // network rpc url (TESTNET)
+export const RPC_URL = "https://mainnet.smartpy.io";
+//export const NETWORK = "jakartanet";
+export const NETWORK = "mainnet";
 export const LIST_OF_GATEWAYS = [
   "https://gateway.pinata.cloud/ipfs/",
-  "cloudflare-ipfs.com/ipfs/",
+  "https://cloudflare-ipfs.com/ipfs/",
   "https://cf-ipfs.com/ipfs/",
 ];
 
