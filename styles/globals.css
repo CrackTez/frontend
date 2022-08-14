@@ -162,6 +162,7 @@ textarea {
   @apply text-blue-700 underline;
 }
 
+
 .unresetDark a {
   @apply text-blue-200 underline;
 }
@@ -290,6 +291,16 @@ th {
   @apply text-yellow-400;
 }
 .unresetDark .hljs .hljs-built_in {
+  @apply text-blue-300;
+}
+
+.unresetDark .hljs .hljs-title {
+  @apply text-red-100
+}
+.unresetDark .hljs .hljs-number {
+  @apply text-red-300;
+}
+.unresetDark .hljs .hljs-attr {
   @apply text-blue-300;
 }
 

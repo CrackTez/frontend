@@ -94,7 +94,7 @@ const Card = ({
           {timeDifference(Date.parse(timestamp))}
         </p>
         <div className={`${isDark ? "lessLightText" : ""} mt-4 justify-end`}>
-        {Math.round(fundraised / 1e5) / 10}
+          {Math.round(fundraised / 1e5) / 10}
           <Image
             src={tezIcon}
             width={15}
@@ -108,7 +108,6 @@ const Card = ({
             height={15}
             className='inline-block'
           />
-        
         </div>
       </div>
     </div>
@@ -119,6 +118,7 @@ export default function Posts() {
   const contextValue = useContext(DarkModeContext);
   const [responseList, setResponseList] = useState([]);
   const [errorHappened, setErrorHappened] = useState(false);
+  const [featuredList, setFeaturedList] = useState([]);
   useEffect(() => {
     async function getPosts() {
       var requestPayload = {
@@ -138,6 +138,7 @@ export default function Posts() {
         if (posts.data) {
           //reverse the posts.data.posts array
           setResponseList(posts.data.posts.reverse());
+          setFeaturedList([posts.data.posts[0], posts.data.posts[9]]);
           //setResponseList(posts.data.posts);
         } else {
           setErrorHappened(true);
@@ -165,7 +166,31 @@ export default function Posts() {
               <p
                 className={`${
                   contextValue.isDark ? "lightText" : "textDark"
-                } text-3xl text-center my-3`}>
+                } text-3xl text-center my-3 font-semibold`}>
+                Featured Blogs
+              </p>
+              <div className='flex flex-wrap mx-auto justify-center'>
+                {featuredList.map((post, index) => {
+                  return (
+                    <Card
+                      key={post["idKey"]}
+                      keyValue={post["idKey"]}
+                      title={post["title"]}
+                      author={post["author"]}
+                      thumbnailHash={post["thumbnailHash"]}
+                      timestamp={post["timestamp"]}
+                      isDark={contextValue.isDark}
+                      fundraising_goal={post["fundraising_goal"]}
+                      fundraised={post["fundraised"]}
+                    />
+                  );
+                })}
+              </div>
+
+              <p
+                className={`${
+                  contextValue.isDark ? "lightText" : "textDark"
+                } text-3xl text-center my-3 font-semibold`}>
                 Trending Blogs
               </p>
               <div className='flex flex-wrap  mx-auto  justify-center '>
